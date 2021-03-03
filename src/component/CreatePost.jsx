@@ -5,11 +5,11 @@ export default function CreatePost(props) {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [type, setType] = useState("");
+    const [file, setFile] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.createPost(title, content, type);
+        props.createPost(title, content, file);
     }
 
     return <Form onSubmit={handleSubmit}>
@@ -30,7 +30,7 @@ export default function CreatePost(props) {
         <Form.Group as={Row} controlId="type">
             <Form.Label column sm="3">type</Form.Label>
             <Col sm="9">
-                <Form.Control type="file" value={type} onChange={e => setType(e.target.value)} accept=".jpeg, .png, .pdf, .docs" />
+                <Form.Control type="file" value={type} onChange={e => setFile(e.target.value)} accept=".jpeg, .png, .pdf, .docs" />
             </Col>
         </Form.Group>
 

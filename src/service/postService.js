@@ -20,12 +20,18 @@ export default class PostService {
         }).then(resp => resp.json())
     }
 
-    createPost(post) {
+    createPost(file, postTitle, postContent, userId) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("postTitle", postTitle);
+        formData.append("postContent", postContent);
+        formData.append("userId", userId);
+
         return fetch(API_URL + POST_PATH + "/post", {
             method: "POST",
-            body: JSON.stringify(post),
+            body: formData,
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 ...this.getAuthorizationHeader()
             }
         })
@@ -34,9 +40,9 @@ export default class PostService {
     updatePost(postID, post) {
         return fetch(API_URL + POST_PATH + "/update/" + postID, {
             method: "PUT",
-            body : JSON.stringify(post),
-            headers : {
-                "content-Type" : "application/json",
+            body: JSON.stringify(post),
+            headers: {
+                "content-Type": "application/json",
                 ...this.getAuthorizationHeader()
             }
         })

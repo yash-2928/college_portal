@@ -5,22 +5,6 @@ import { Card, Col, Container } from "react-bootstrap";
 import CommentItem from "./CommentItem";
 
 export default class PostItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      //user profile image and post image or document
-      firstname: "",
-      lastname: "",
-      postDate: "",
-      postTitle: "",
-      contant: "",
-      reported: "",
-      type: "",
-    };
-
-    this.comment = this.comment.bind(this);
-  }
 
   comment() {
     <div style={{ padding: "0px 50px" }}>
@@ -49,18 +33,8 @@ export default class PostItem extends React.Component {
               {this.props.postTitle}
               {this.props.contant}
             </Card.Text>
-            if(this.state.type === 'jpeg' || 'png'){" "}
-            {<Card.Img variant="bottom" src="" />}
-            else(this.state.type === 'pdf')
-            {
-              <Card.Img
-                width={64}
-                height={64}
-                className="mr-3"
-                src="/public/Images/pdf_img.png"
-                alt="Generic placeholder"
-              />
-            }
+            {this.props.postType.startsWith('image') && <Card.Img variant="bottom" src={this.props.fileUrl} />}
+            {this.props.postType === "application/pdf" && <div></div>}
           </Card.Body>
           <Card.Footer>
             <CardActions disableSpacing>

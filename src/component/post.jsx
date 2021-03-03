@@ -29,17 +29,19 @@ class Post extends React.Component {
 
   loadPosts() {
     this.postService.getPosts().then(data => {
-      this.setState({ posts: data });
+      if (data) {
+        this.setState({ posts: data });
+      }
     })
   }
 
-  createPost(title, content, type) {
-    this.postService.createPost({
-      userId: this.state.currentUser.userId,
-      postTitle: title,
-      postType: type,
-      content: content
-    }).then(() => this.loadPosts())
+  createPost(title, content, file) {
+    this.postService.createPost(
+      file,
+      title,
+      content,
+      this.state.currentUser.userId
+    ).then(() => this.loadPosts())
   }
 
   render() {
@@ -47,7 +49,7 @@ class Post extends React.Component {
       <Container>
         <Row><CreatePost createPost={this.createPost} /></Row>
         <hr />
-        {this.state.posts.map((post, i) => <PostItem key={i} {...post} /> )} 
+        {this.state.posts?.map((post, i) => <PostItem key={i} {...post} />)}
       </Container>
     );
   }
