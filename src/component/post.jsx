@@ -3,7 +3,6 @@ import { Container, Row } from 'react-bootstrap';
 import { CURRENT_USER } from '../App';
 import PostService from '../service/postService';
 import CreatePost from './CreatePost';
-import PostItem from './PostItem';
 
 class Post extends React.Component {
   constructor(props) {
@@ -30,6 +29,7 @@ class Post extends React.Component {
   loadPosts() {
     this.postService.getPosts().then(data => {
       if (data) {
+
         this.setState({ posts: data });
       }
     })
@@ -47,9 +47,8 @@ class Post extends React.Component {
   render() {
     return (
       <Container>
-        <Row><CreatePost createPost={this.createPost} /></Row>
-        <hr />
-        {this.state.posts?.map((post, i) => <PostItem key={i} {...post} />)}
+        <CreatePost createPost={this.createPost} />
+        {this.state.posts}
       </Container>
     );
   }

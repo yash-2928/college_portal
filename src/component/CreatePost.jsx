@@ -16,7 +16,7 @@ export default function CreatePost(props) {
         <Form.Group as={Row} controlId="title">
             <Form.Label column sm="3">Title</Form.Label>
             <Col sm="9">
-                <Form.Control value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Enter Post Title" />
+                <Form.Control type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Enter Post Title" />
             </Col>
         </Form.Group>
 
@@ -30,7 +30,7 @@ export default function CreatePost(props) {
         <Form.Group as={Row} controlId="type">
             <Form.Label column sm="3">type</Form.Label>
             <Col sm="9">
-                <Form.Control type="file" value={type} onChange={e => setFile(e.target.value)} accept=".jpeg, .png, .pdf, .docs" />
+                <Form.Control type="file" value={file} onChange={e => setFile(e.target.value)} accept=".jpeg, .png, .pdf, .docs" />
             </Col>
         </Form.Group>
 

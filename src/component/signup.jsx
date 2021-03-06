@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from 'react-router';
 import { Button, Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { signUp } from "../service/authService";
 
 class Signup extends React.Component {
@@ -166,7 +166,7 @@ class Signup extends React.Component {
           >
             Submit
           </Button>
-          <Link to="/">{"Already registared? Login here"}</Link>
+          <Link to="/" variant="body2">{"Already registared? Login here"}</Link>
         </Form>
       </Container>
     );

@@ -4,23 +4,31 @@ import React from "react";
 import { Card, Col, Container } from "react-bootstrap";
 import CommentItem from "./CommentItem";
 
-export default class PostItem extends React.Component {
 
-  comment() {
+  
+
+function Postitem(){
+  
+  const [count, setCount] = useState(0);
+
+  const Comment = () => {
     <div style={{ padding: "0px 50px" }}>
       {this.props.comments?.map((comment, i) => (
         <CommentItem key={i} {...comment} />
       ))}
-    </div>;
+    </div>
   }
 
-  rander() {
+  const Report = () => {
+    return setCount(count + 1);
+  }
+
     return (
       <Container fixed>
         <Card>
           <Card.Header>
             <Col>
-              <Card.Img src="" roundedCircle />
+              <Card.Img src={this.props.fileUrl} roundedCircle />
               <Card.Text>
                 {this.props.firstname}
                 {this.props.lastname}
@@ -44,10 +52,10 @@ export default class PostItem extends React.Component {
               <IconButton aria-label="download">
                 <CloudDownload />
               </IconButton>
-              <IconButton onclick={this.comment()} aria-label="comment">
+              <IconButton onclick={Comment} aria-label="comment">
                 <Comment />
               </IconButton>
-              <IconButton aria-label="report">
+              <IconButton onclick={Report} aria-label="report">
                 <Report />
               </IconButton>
             </CardActions>
@@ -55,8 +63,9 @@ export default class PostItem extends React.Component {
         </Card>
       </Container>
     );
-  }
 }
+
+export default Postitem;
 
 /*<div>
     <h1>{props.postTitle}</h1>

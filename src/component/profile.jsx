@@ -67,7 +67,7 @@ class Profile extends React.Component {
             </Col>
             <Col xs={6} md={4}>
               <Image src={Heart} rounded />
-            </Col>
+            </Col> 
           </Row>
         </Container>
       </>

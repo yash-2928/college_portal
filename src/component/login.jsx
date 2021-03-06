@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@material-ui/core";
 import React from "react";
+import { Link } from 'react-router';
 import { Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -35,6 +35,7 @@ class Login extends React.Component {
           <TextField
             variant="outlined"
             margin="normal"
+
             required
             fullWidth
             value={this.state.email}
@@ -68,12 +69,12 @@ class Login extends React.Component {
           </Button>
           <Grid container style={{ paddingTop: "10px" }}>
             <Grid item xs>
-              <Link Link to="" variant="body2">
-                Forgot password?
+              <Link to="forget" variant="body2">
+                {"Forgot password?"}
               </Link>
             </Grid>
             <Grid item>
-              <Link Link to="signup" variant="body2">
+              <Link to="signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

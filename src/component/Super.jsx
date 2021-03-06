@@ -5,9 +5,8 @@ import { PostList, PostEdit, PostCreate } from "./admin/posts";
 import { JobList, JobEdit, JobCreate } from "./admin/jobs";
 import Dashboard from "./admin/Dashboard";
 import DataProvider from "./admin/dataProvider";
-import Profile from "./profile";
 
-class Min extends React.Component {
+class Super extends React.Component {
   render() {
     return (
       <Admin dataProvider={DataProvider} dashboard={Dashboard}>
@@ -29,10 +28,9 @@ class Min extends React.Component {
           edit={UserEdit}
           create={UserCreate}
         />
-        <Resource name="profile" ><Profile /></Resource> 
       </Admin>
     );
   }
 }
 
-export default Min;
+export default Super;

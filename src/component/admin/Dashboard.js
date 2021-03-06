@@ -5,7 +5,7 @@ export default function () {
   return(
     <Card>
     <CardHeader title="Welcome to the administration" />
-    <CardContent>Lorem ipsum sic dolor amet...</CardContent>
+    <CardContent>Here you can manage whole Portal... </CardContent>
   </Card>
   );
 }
