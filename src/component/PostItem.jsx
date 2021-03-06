@@ -3,12 +3,14 @@ import { CloudDownload, Comment, Favorite, Report } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Card, Col, Container } from "react-bootstrap";
 import CommentItem from "./CommentItem";
+import CreateComment from "./CreateComment";
 import DocumentView from './DocumentView'
 
 
 
 
 export default function Postitem(props) {
+
 
   return (
     <Container fixed>
@@ -21,6 +23,10 @@ export default function Postitem(props) {
           <p>{props.content}</p>
           {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} />}
         </Card.Body>
+        <Card.Footer>
+          <CreateComment createComment={(content) => props.createComment(props.postId, content)} />
+          {props.comments.map((comment, i) => <CommentItem key={i} {...comment} />)}
+        </Card.Footer>
       </Card>
     </Container>
   );

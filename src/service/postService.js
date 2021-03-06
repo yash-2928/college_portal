@@ -20,6 +20,12 @@ export default class PostService {
         }).then(resp => resp.json())
     }
 
+    getPost(postId) {
+        return fetch(API_URL + POST_PATH + "/posts/" + postId, {
+            headers: this.getAuthorizationHeader()
+        }).then(resp => resp.json())
+    }
+
     createPost(file, postTitle, postContent, userId) {
         const formData = new FormData();
         if (file) {
