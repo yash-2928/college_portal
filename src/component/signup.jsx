@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from 'react-router';
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Nav } from "react-bootstrap";
 import { signUp } from "../service/authService";
 
 class Signup extends React.Component {
@@ -166,7 +165,7 @@ class Signup extends React.Component {
           >
             Submit
           </Button>
-          <Link to="/" variant="body2">{"Already registared? Login here"}</Link>
+          <Nav.Link href="/" >Already registared? Login here</Nav.Link>
         </Form>
       </Container>
     );

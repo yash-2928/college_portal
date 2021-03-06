@@ -30,7 +30,7 @@ export default function CreatePost(props) {
         <Form.Group as={Row} controlId="type">
             <Form.Label column sm="3">type</Form.Label>
             <Col sm="9">
-                <Form.Control type="file" value={file} onChange={e => setFile(e.target.value)} accept=".jpeg, .png, .pdf, .docs" />
+                <Form.Control type="file" onChange={e => setFile(e.target.files.length > 0 ? e.target.files[0] : null)} accept=".jpeg, .png, .pdf, .docs" />
             </Col>
         </Form.Group>
 

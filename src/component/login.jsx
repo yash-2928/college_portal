@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@material-ui/core";
 import React from "react";
 import { Link } from 'react-router';
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Nav } from "react-bootstrap";
 
 class Login extends React.Component {
   constructor(props) {
@@ -74,9 +74,7 @@ class Login extends React.Component {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Nav.Link href="/signup">Don't have an account? Sign Up</Nav.Link>
             </Grid>
           </Grid>
         </form>

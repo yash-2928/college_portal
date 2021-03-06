@@ -10,8 +10,8 @@ class Body extends React.Component {
     return (
       <Router>
         <div>
-          {this.props.isAdmin} ? <Route path="/admin" component={Admin} />
-          : <Route path="/post" component={Post} />
+          {this.props.isAdmin && <Route path="/admin" component={Admin} />}
+          <Route path="/post" component={Post} />
           <Route path="/job" component={Job} />
           <Route path="/profile" component={Profile} />
         </div>

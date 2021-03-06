@@ -22,7 +22,9 @@ export default class PostService {
 
     createPost(file, postTitle, postContent, userId) {
         const formData = new FormData();
-        formData.append("file", file);
+        if (file) {
+            formData.append("file", file);
+        }
         formData.append("postTitle", postTitle);
         formData.append("postContent", postContent);
         formData.append("userId", userId);
@@ -31,7 +33,6 @@ export default class PostService {
             method: "POST",
             body: formData,
             headers: {
-                "Content-Type": "multipart/form-data",
                 ...this.getAuthorizationHeader()
             }
         })
