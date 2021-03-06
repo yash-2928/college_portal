@@ -73,9 +73,9 @@ class Post extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{ width: "70%" }}>
         <CreatePost createPost={this.createPost} />
-        {this.state.posts.map((post, i) => <Postitem createComment={this.createComment} key={i} {...post} />)}
+        {this.state.posts.map((post, i) => <Postitem isAdmin={this.props.isAdmin} createComment={this.createComment} key={i} {...post} />)}
       </Container>
     );
   }
