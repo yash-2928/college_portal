@@ -1,29 +1,30 @@
-const baseUrl = "http://localhost:8080"
+import { API_URL } from "./config"
 
-export function addUser(user) {
-    const body = JSON.stringify(user);
-    const headers = {
-        "Content-Type": "application/json"
-    }
-    fetch(baseUrl + "/addUser", {
-        headers: headers,
-        body: body,
-        method: "POST"
-    }).then(resp => resp.json())
-        .then(data => console.log(data))
-    .catch(err => console.error(err))
-}
+const USER_PATH = "/admin/api"
 
-export function loginUser(user) {
-    const body = JSON.stringify(user);
-    const headers = {
-        "Content-Type": "application/json"
+export default class UserService {
+
+    constructor(token) {
+        this.token = token;
     }
-    fetch(baseUrl + "/login", {
-        headers: headers,
-        body: body,
-        method: "GET"
-    }).then(resp => resp.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err))
+
+    getAuthorizationHeader() {
+        return {
+            "Authorization": "Bearer " + this.token
+        }
+    }
+
+    getUsers() {
+        return fetch(API_URL + USER_PATH + "/users", {
+            headers: this.getAuthorizationHeader()
+        }).then(resp => resp.json())
+    }
+
+    deleteUser(userId) {
+        return fetch(API_URL + USER_PATH + "/users/" + userId, {
+            method: "DELETE",
+            headers: this.getAuthorizationHeader()
+        })
+    }
+
 }

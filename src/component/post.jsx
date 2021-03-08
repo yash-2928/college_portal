@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { CURRENT_USER } from '../App';
 import CommentService from '../service/commentService';
 import PostService from '../service/postService';
+import { getSignedInUser } from '../util/common';
 import CreatePost from './CreatePost';
 import Postitem from './PostItem';
 
@@ -14,16 +14,13 @@ class Post extends React.Component {
   constructor(props) {
     super(props)
 
-    let currentUser = localStorage.getItem(CURRENT_USER)
-    currentUser = JSON.parse(currentUser)
-
     this.state = {
-      currentUser,
+      currentUser: getSignedInUser(),
       posts: []
     }
 
-    this.postService = new PostService(currentUser.accessToken);
-    this.commentService = new CommentService(currentUser.accessToken);
+    this.postService = new PostService(this.state.currentUser.accessToken);
+    this.commentService = new CommentService(this.state.currentUser.accessToken);
     this.loadPosts = this.loadPosts.bind(this);
     this.createPost = this.createPost.bind(this);
     this.createComment = this.createComment.bind(this);

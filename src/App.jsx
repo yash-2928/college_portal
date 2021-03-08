@@ -6,17 +6,14 @@ import Login from "./component/login";
 import Signup from "./component/signup";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { login } from "./service/authService";
-
-export const CURRENT_USER = "currentUser";
+import { getSignedInUser, loadSignedInUser, removeSignedInUser } from "./util/common";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const currentUser = localStorage.getItem(CURRENT_USER);
-
     this.state = {
-      currentUser: currentUser && JSON.parse(currentUser),
+      currentUser: getSignedInUser()
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -24,7 +21,7 @@ class App extends React.Component {
   }
 
   handleLogout() {
-    localStorage.removeItem(CURRENT_USER);
+    removeSignedInUser();
     this.setState({ currentUser: null }, () => {
       window.location.pathname = "/";
     });
@@ -32,7 +29,7 @@ class App extends React.Component {
 
   handleLogin(email, password) {
     login(email, password).then((data) => {
-      localStorage.setItem(CURRENT_USER, JSON.stringify(data));
+      loadSignedInUser(data)
       this.setState({ currentUser: data }, () => {
         window.location.pathname = "/post";
       });
