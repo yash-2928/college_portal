@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row, Button } from "react-bootstrap";
 import Heart from "../images/heart.jpeg";
 import Purple from "../images/purple.jpeg";
 import Sun from "../images/sun.jpeg";
@@ -22,11 +22,12 @@ class Profile extends React.Component {
   }
   render() {
     return (
-      <>
+      <div>
         <Container
           style={{
-            paddingLeft: "250px",
-            paddingTop: "70px",
+            width: "50%",
+            paddingLeft: "150px",
+            paddingTop: "35px",
             paddingBottom: "30px",
             borderBottom: "1px solid black",
           }}
@@ -34,43 +35,47 @@ class Profile extends React.Component {
           <Row>
             <Col>
               <Image
-                style={{ height: "auto", width: "250px" }}
-                src={Heart}
+                style={{
+                  display: "flex",
+                  float: "left",
+                  height: "200px",
+                  width: "220px",
+                  marginRight: "64px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                src={Purple}
                 roundedCircle
               />
             </Col>
-            <Col style={{ paddingRight: "250px" }}>
+            <Col
+              style={{
+                paddingRight: "250px",
+                paddingTop: "5px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <h4>Yash Mehta</h4>
               <h6>170240116014</h6>
+              <h6>B.E.(Infromation Technology)</h6>
+              <h6>2017-2021</h6>
               <h6>29-10-2000</h6>
               <h6>mehtay613@gmail.com</h6>
               <h6>Male</h6>
             </Col>
           </Row>
         </Container>
-        <Container style={{ paddingTop: "50px"}}>
-          <Row>
-            <Col xs={6} md={4}>
-              <Image src={Flower} rounded />
+        <Container style={{
+            width: "50%",
+            paddingTop: "35px",
+          }}>
+          <Row xs={1} md={3}>
+            <Col>
             </Col>
-            <Col xs={6} md={4}>
-              <Image src={Purple} rounded />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={Sun} rounded />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={Water} rounded />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={Yellow} rounded />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={Heart} rounded />
-            </Col> 
           </Row>
         </Container>
-      </>
+      </div>
     );
   }
 }

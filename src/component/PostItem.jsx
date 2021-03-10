@@ -1,26 +1,44 @@
-import { CardActions, IconButton } from "@material-ui/core";
-import { CloudDownload, Comment, Favorite, Report, Delete } from "@material-ui/icons";
+import { IconButton } from "@material-ui/core";
+import { Comment, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
-import { Card, Button, Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import CommentItem from "./CommentItem";
 import CreateComment from "./CreateComment";
-import DocumentView from './DocumentView'
+import DocumentView from './DocumentView';
 
+export function PostTable(props) {
 
+  const handleDelete = (postId) => {
+      const confirmed = window.confirm("Do you want to delete this post?")
+      if (confirmed) {
+          props.deleteUser(postId);
+      }
+  }
 
+  return <tr>
+      <td>{props.postId}</td>
+      <td>{props.firstname} {props.lastname}</td>
+      <td>{props.postTitle}</td>
+      <td>{props.postItem}</td>
+      <td>{props.fileUrl}</td>
+      <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
+  </tr>
+}
 
 export default function Postitem(props) {
   const [showComments, setShow] = useState(false)
 
   return (
-    <Container fixed>
+    <Container style={{paddingTop: "20px"}} fixed>
       <Card>
         <Card.Header>
           <Card.Title>
-            <span>{props.user.firstname} {props.user.lastname}</span>
+            <span>{props.user.firstname} {props.user.lastname}
             {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
+            </span>
           </Card.Title>
         </Card.Header>
+
         <Card.Body>
           <Card.Text>{props.postTitle}</Card.Text>
           <p>{props.content}</p>
@@ -28,7 +46,6 @@ export default function Postitem(props) {
         </Card.Body>
         <Card.Footer>
           <IconButton onClick={() => setShow(!showComments)}><Comment /></IconButton>
-          {/* <Button onClick={() => setShow(!showComments)}>{showComments ? "Hide" : "Show"}</Button> */}
           {showComments && <div>
             <CreateComment createComment={(content) => props.createComment(props.postId, content)} />
             {props.comments.map((comment, i) => <CommentItem key={i} {...comment} />)}

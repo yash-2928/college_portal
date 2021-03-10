@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 export default function CreateComment(props) {
 
