@@ -1,25 +1,40 @@
 import React from "react";
 import { Col, Container, Image, Row, Button } from "react-bootstrap";
+import DocumentView from "./DocumentView"
 import Heart from "../images/heart.jpeg";
 import Purple from "../images/purple.jpeg";
 import Sun from "../images/sun.jpeg";
 import Water from "../images/water.jpeg";
 import Yellow from "../images/yellow.jpeg";
 import Flower from "../images/flowers.jpeg";
+import { getSignedInUser } from "../util/common";
+import PostService from "../service/postService"
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      enrollmentNo: "",
-      firstname: "",
-      lastname: "",
-      email: "",
-      gender: "MALE",
-      dateOfBirth: "",
+      currentUser: getSignedInUser(),
+      posts: []
     };
+
+    this.postService = new PostService(this.state.currentUser.accessToken);
+
+    this.loadPostsByUserId = this.loadPostsByUserId.bind(this)
   }
+
+  loadPostsByUserId() {
+    this.postService.getPostsByUserId(this.state.currentUser.userId)
+      .then(data => {
+        this.setState({ posts: data })
+      });
+  }
+
+  componentDidMount() {
+    this.loadPostsByUserId()
+  }
+
   render() {
     return (
       <div>
@@ -67,12 +82,13 @@ class Profile extends React.Component {
           </Row>
         </Container>
         <Container style={{
-            width: "50%",
-            paddingTop: "35px",
-          }}>
+          width: "50%",
+          paddingTop: "35px",
+        }}>
           <Row xs={1} md={3}>
-            <Col>
-            </Col>
+            {this.state.posts.map((post, i) => <div key={i}>
+              <DocumentView fileUrl={post.fileUrl} postType={post.postType} />
+            </div>)}
           </Row>
         </Container>
       </div>

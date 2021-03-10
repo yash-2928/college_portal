@@ -28,12 +28,17 @@ class App extends React.Component {
   }
 
   handleLogin(email, password) {
-    login(email, password).then((data) => {
-      loadSignedInUser(data)
-      this.setState({ currentUser: data }, () => {
-        window.location.pathname = "/post";
+    if (email && password) {
+      login(email, password).then((data) => {
+        console.log(data);
+        if (data) {
+          loadSignedInUser(data)
+          this.setState({ currentUser: data }, () => {
+            window.location.pathname = "/post";
+          });
+        }
       });
-    });
+    }
   }
 
   render() {

@@ -2,7 +2,7 @@ import { API_URL } from "./config"
 
 const POST_PATH = "/api"
 
-export default class PostService {
+export default class JobService {
 
     constructor(token) {
         this.token = token;
@@ -32,7 +32,7 @@ export default class PostService {
             formData.append("file", file);
         }
         formData.append("companyName", companyName);
-        formData.append("link" ,link);
+        formData.append("link", link);
         formData.append("jobTitle", jobTitle);
         formData.append("jobContent", jobContent);
         formData.append("userId", userId);

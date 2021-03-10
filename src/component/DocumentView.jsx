@@ -1,5 +1,6 @@
 import React from "react";
 import pdfImage from "../images/pdf_img.png";
+import Water from "../images/water.jpeg";
 
 export default function DocumentView(props) {
   let fileUrl = props.fileUrl;
@@ -11,5 +12,5 @@ export default function DocumentView(props) {
     height = 64;
     // <img src={pdfImage} width={64} height={64} />
   }
-  return <img src={fileUrl} alt="" width={width} height={height} />;
+  return <img src={fileUrl || Water} alt="" width={width} height={height} />;
 }

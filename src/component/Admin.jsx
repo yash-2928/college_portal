@@ -1,10 +1,12 @@
 import React from "react";
 import { Card, Table, Accordion, Button } from "react-bootstrap";
 import UserService from "../service/userService";
+import PostService from "../service/postService"
+import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
 import User from "./User";
-import PostTable from "./PostItem";
-import JobTable from "./JobItem";
+import { PostTable } from "./PostItem";
+import { JobTable } from "./JobItem";
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -18,6 +20,8 @@ export default class Admin extends React.Component {
     };
 
     this.userService = new UserService(this.state.currentUser.accessToken);
+    this.postService = new PostService(this.state.currentUser.accessToken);
+    this.jobService = new JobService(this.state.currentUser.accessToken);
 
     this.loadUsers = this.loadUsers.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
@@ -39,7 +43,7 @@ export default class Admin extends React.Component {
 
   loadPost() {
     this.postService.getPosts().then((posts) => {
-      this.setState(posts);
+      this.setState({ posts });
     });
   }
 
@@ -49,7 +53,7 @@ export default class Admin extends React.Component {
 
   loadJob() {
     this.jobService.getJobs().then((jobs) => {
-      this.setState(jobs);
+      this.setState({ jobs });
     });
   }
 
@@ -59,6 +63,8 @@ export default class Admin extends React.Component {
 
   componentDidMount() {
     this.loadUsers();
+    this.loadPost();
+    this.loadJob();
   }
 
   render() {
@@ -180,5 +186,5 @@ export default class Admin extends React.Component {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>  
+        <List>{mainListItems}</List>
       </Drawer> */

@@ -9,7 +9,12 @@ export function login(username, password) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((resp) => resp.json());
+  }).then((resp) => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    throw new Error("Error signing in!")
+  }).catch(error => alert(error));
 }
 
 export function signUp(user) {

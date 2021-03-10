@@ -9,19 +9,19 @@ import DocumentView from './DocumentView';
 export function PostTable(props) {
 
   const handleDelete = (postId) => {
-      const confirmed = window.confirm("Do you want to delete this post?")
-      if (confirmed) {
-          props.deleteUser(postId);
-      }
+    const confirmed = window.confirm("Do you want to delete this post?")
+    if (confirmed) {
+      props.deleteUser(postId);
+    }
   }
 
   return <tr>
-      <td>{props.postId}</td>
-      <td>{props.firstname} {props.lastname}</td>
-      <td>{props.postTitle}</td>
-      <td>{props.postItem}</td>
-      <td>{props.fileUrl}</td>
-      <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
+    <td>{props.postId}</td>
+    <td>{props.user.firstname} {props.user.lastname}</td>
+    <td>{props.postTitle}</td>
+    <td>{props.content}</td>
+    <td>{props.fileUrl}</td>
+    <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
   </tr>
 }
 
@@ -29,12 +29,12 @@ export default function Postitem(props) {
   const [showComments, setShow] = useState(false)
 
   return (
-    <Container style={{paddingTop: "20px"}} fixed>
+    <Container style={{ paddingTop: "20px" }} fixed>
       <Card>
         <Card.Header>
           <Card.Title>
             <span>{props.user.firstname} {props.user.lastname}
-            {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
+              {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
             </span>
           </Card.Title>
         </Card.Header>
