@@ -43,7 +43,7 @@ export default function Postitem(props) {
         <Card.Body>
           <Card.Text>{props.postTitle}</Card.Text>
           <p>{props.content}</p>
-          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} />}
+          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={100} height={100} />}
         </Card.Body>
         <Card.Footer>
           <IconButton><Favorite /></IconButton>
@@ -52,7 +52,7 @@ export default function Postitem(props) {
             <CreateComment createComment={(content) => props.createComment(props.postId, content)} />
             {props.comments.map((comment, i) => <CommentItem key={i} {...comment} />)}
           </div>}
-          <IconButton style={{alignItems:"flex-end"}}><Report /></IconButton>
+          <IconButton style={{ alignItems: "flex-end" }}><Report /></IconButton>
         </Card.Footer>
       </Card>
     </Container>

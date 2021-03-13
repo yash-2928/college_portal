@@ -57,11 +57,17 @@ export default class JobService {
         })
     }
 
-    deletePost(jobId) {
-        return fetch(API_URL + POST_PATH + "/posts/" + jobId, {
+    deleteJob(jobId) {
+        return fetch(API_URL + POST_PATH + "/jobs/" + jobId, {
             method: "DELETE",
             headers: this.getAuthorizationHeader()
         })
+    }
+
+    getJobsByUserId(userId) {
+        return fetch(API_URL + POST_PATH + "/users/" + userId + "/jobs", {
+            headers: this.getAuthorizationHeader()
+        }).then(resp => resp.json())
     }
 
 }

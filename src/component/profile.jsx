@@ -1,14 +1,13 @@
 import React from "react";
 import { Col, Container, Image, Row, Button } from "react-bootstrap";
 import DocumentView from "./DocumentView";
-import Heart from "../images/heart.jpeg";
+import moment from 'moment'
 import Purple from "../images/purple.jpeg";
-import Sun from "../images/sun.jpeg";
-import Water from "../images/water.jpeg";
-import Yellow from "../images/yellow.jpeg";
-import Flower from "../images/flowers.jpeg";
 import { getSignedInUser } from "../util/common";
 import PostService from "../service/postService";
+import ProfileService from "../service/profileService";
+import JobService from "../service/jobService";
+import EditProfile from "./EditProfile";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -16,12 +15,38 @@ class Profile extends React.Component {
 
     this.state = {
       currentUser: getSignedInUser(),
+      userData: {},
       posts: [],
+      jobs: [],
+      showEditModal: false
     };
 
     this.postService = new PostService(this.state.currentUser.accessToken);
+    this.profileService = new ProfileService(this.state.currentUser.accessToken);
+    this.jobService = new JobService(this.state.currentUser.accessToken);
 
+
+    this.loadJobsByUserId = this.loadJobsByUserId.bind(this);
     this.loadPostsByUserId = this.loadPostsByUserId.bind(this);
+    this.loadUserData = this.loadUserData.bind(this)
+    this.showModal = this.showModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+  }
+
+  showModal() {
+    this.setState({ showEditModal: true })
+  }
+
+  closeModal() {
+    this.setState({ showEditModal: false })
+  }
+
+  loadUserData() {
+    this.profileService.getUserData(this.state.currentUser.userId)
+      .then(data => {
+        this.setState({ userData: data })
+      })
   }
 
   loadPostsByUserId() {
@@ -32,13 +57,40 @@ class Profile extends React.Component {
       });
   }
 
+  loadJobsByUserId() {
+    this.jobService
+      .getJobsByUserId(this.state.currentUser.userId)
+      .then((data) => {
+        this.setState({ jobs: data });
+      });
+  }
+
   componentDidMount() {
+    this.loadUserData();
     this.loadPostsByUserId();
+    this.loadJobsByUserId();
+  }
+
+  updateUser(updatedUser) {
+    this.profileService.userUpdate({
+      id: this.state.currentUser.userId,
+      ...updatedUser
+    })
+      .then(data => {
+        this.setState({ userData: data })
+      })
   }
 
   render() {
+    const dateString = this.state.userData.dateOfBirth;
+    const date = moment(dateString)
     return (
       <div>
+        <EditProfile
+          {...this.state.userData}
+          show={this.state.showEditModal}
+          close={this.closeModal}
+          updateUser={this.updateUser} />
         <Container
           style={{
             width: "50%",
@@ -63,6 +115,7 @@ class Profile extends React.Component {
                 src={Purple}
                 roundedCircle
               />
+              <Button onClick={this.showModal}>Edit Profile</Button>
             </Col>
             <Col
               style={{
@@ -73,18 +126,18 @@ class Profile extends React.Component {
               }}
             >
               <h4>
-                {this.state.currentUser.firstName}
-                {this.state.currentUser.lastName}
+                {this.state.userData.firstname}{' '}
+                {this.state.userData.lastname}
               </h4>
-              <h6>{this.state.currentUser.enrollmentNo}</h6>
+              <h6>{this.state.userData.enrollmentNo}</h6>
               <h6>
-                {this.state.currentUser.course}
-                {this.state.currentUser.branch}
+                {this.state.userData.course}{' '}
+                {this.state.userData.branch}
               </h6>
-              <h6>{this.state.currentUser.passoutYear}</h6>
-              <h6>{this.state.currentUser.dateOfBirth}</h6>
-              <h6>{this.state.currentUser.email}</h6>
-              <h6>{this.state.currentUser.gender}</h6>
+              <h6>{this.state.userData.passoutYear}</h6>
+              <h6>{date.format("DD/MM/YYYY")}</h6>
+              <h6>{this.state.userData.email}</h6>
+              <h6>{this.state.userData.gender}</h6>
             </Col>
           </Row>
         </Container>
@@ -97,7 +150,7 @@ class Profile extends React.Component {
           <Row xs={1} md={3}>
             {this.state.posts.map((post, i) => (
               <Col key={i}>
-                <DocumentView fileUrl={post.fileUrl} postType={post.postType} />
+                <DocumentView fileUrl={post.fileUrl} postType={post.postType} height={100} width={100} />
               </Col>
             ))}
           </Row>
