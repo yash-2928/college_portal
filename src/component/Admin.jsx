@@ -115,6 +115,7 @@ export default class Admin extends React.Component {
                       <th>Post Title</th>
                       <th>Post Content</th>
                       <th>File</th>
+                      <th>Reported</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -148,6 +149,7 @@ export default class Admin extends React.Component {
                       <th>Job Title</th>
                       <th>Job Item</th>
                       <th>Files</th>
+                      <th>Reported</th>
                       <th>Actions</th>
                     </tr>
                   </thead>

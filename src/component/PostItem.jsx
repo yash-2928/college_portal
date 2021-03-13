@@ -1,5 +1,5 @@
 import { IconButton } from "@material-ui/core";
-import { Comment, Delete } from "@material-ui/icons";
+import { Comment, Delete, Favorite, Report } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import CommentItem from "./CommentItem";
@@ -21,6 +21,7 @@ export function PostTable(props) {
     <td>{props.postTitle}</td>
     <td>{props.content}</td>
     <td>{props.fileUrl}</td>
+    <td>{props.report}</td>
     <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
   </tr>
 }
@@ -45,11 +46,13 @@ export default function Postitem(props) {
           {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} />}
         </Card.Body>
         <Card.Footer>
+          <IconButton><Favorite /></IconButton>
           <IconButton onClick={() => setShow(!showComments)}><Comment /></IconButton>
           {showComments && <div>
             <CreateComment createComment={(content) => props.createComment(props.postId, content)} />
             {props.comments.map((comment, i) => <CommentItem key={i} {...comment} />)}
           </div>}
+          <IconButton style={{alignItems:"flex-end"}}><Report /></IconButton>
         </Card.Footer>
       </Card>
     </Container>

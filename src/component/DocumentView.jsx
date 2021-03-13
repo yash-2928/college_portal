@@ -4,13 +4,12 @@ import Water from "../images/water.jpeg";
 
 export default function DocumentView(props) {
   let fileUrl = props.fileUrl;
-  let height = 100;
-  let width = 100;
+  let height = 200;
+  let width = 200;
   if (props.postType === "application/pdf") {
     fileUrl = pdfImage;
     width = 64;
     height = 64;
-    // <img src={pdfImage} width={64} height={64} />
   }
   return <img src={fileUrl || Water} alt="" width={width} height={height} />;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Form, Nav } from "react-bootstrap";
+import { Button, Container, Form, Nav, Col } from "react-bootstrap";
 import { signUp } from "../service/authService";
 
 class Signup extends React.Component {
@@ -10,6 +10,9 @@ class Signup extends React.Component {
       enrollmentNo: "",
       firstname: "",
       lastname: "",
+      course: "",
+      branch: "",
+      passoutYear: "",
       email: "",
       phoneNumber: "",
       gender: "MALE",
@@ -47,9 +50,9 @@ class Signup extends React.Component {
   render() {
     return (
       <Container
-        style={{ height: "700px", width: "600px", paddingTop: "80px" }}
+        style={{ height: "700px", width: "600px", paddingTop: "30px" }}
       >
-        <h4 style={{ paddingLeft: "240px" }}>Sign Up</h4>
+        <h4 style={{ paddingLeft: "240px", paddingBottom: "20px" }}>Sign Up</h4>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicText" variant="outlined">
             <Form.Label>Enrollment No</Form.Label>
@@ -63,7 +66,9 @@ class Signup extends React.Component {
               placeholder="Enter Enrollment No"
             />
           </Form.Group>
-          <Form.Group controlId="formBasicText">
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicText">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               value={this.state.firstName}
@@ -76,7 +81,7 @@ class Signup extends React.Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicText">
+          <Form.Group as={Col} controlId="formBasicText">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               value={this.state.lastName}
@@ -88,8 +93,50 @@ class Signup extends React.Component {
               placeholder="Enter Last Name"
             />
           </Form.Group>
+        </Form.Row>
 
-          <Form.Group controlId="formBasicText">
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicText">
+            <Form.Label>Course</Form.Label>
+            <Form.Control
+              value={this.state.course}
+              onChange={(e) =>
+                this.handleTextChange(e.target.value, "course")
+              }
+              required
+              type="text"
+              placeholder="Enter your Course"
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formBasicText">
+            <Form.Label>Branch</Form.Label>
+            <Form.Control
+              value={this.state.branch}
+              onChange={(e) =>
+                this.handleTextChange(e.target.value, "branch")
+              }
+              required
+              type="text"
+              placeholder="Enter your branch"
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formBasicText" variant="outlined">
+            <Form.Label>Passout Year</Form.Label>
+            <Form.Control
+              value={this.state.passoutYear}
+              onChange={(e) =>
+                this.handleNumberChange(e.target.value, "passoutYear")
+              }
+              required
+              type="number"
+              placeholder="2017-2021"
+            />
+          </Form.Group>
+        </Form.Row>
+
+        <Form.Group controlId="formBasicText">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               value={this.state.dateOfBirth}

@@ -40,10 +40,7 @@ class Login extends React.Component {
             fullWidth
             value={this.state.email}
             onChange={(e) => this.handleTextChange(e.target.value, "email")}
-            type="email"
-            id="email"
-            label="Email Address"
-            name="email"
+            type="email" id="email" label="Email Address" name="email"
             autoComplete="email"
             autoFocus
           />

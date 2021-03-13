@@ -22,6 +22,7 @@ export function JobTable(props) {
     <td>{props.jobTitle}</td>
     <td>{props.content}</td>
     <td>{props.fileUrl}</td>
+    <td>{props.report}</td>
     <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
   </tr>
 }

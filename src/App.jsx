@@ -30,7 +30,6 @@ class App extends React.Component {
   handleLogin(email, password) {
     if (email && password) {
       login(email, password).then((data) => {
-        console.log(data);
         if (data) {
           loadSignedInUser(data)
           this.setState({ currentUser: data }, () => {
