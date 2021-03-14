@@ -6,7 +6,7 @@ export default class EditProfile extends React.Component {
         super(props);
 
         this.state = {
-            email: props.email,
+            //email: props.email,
             phoneNumber: props.phoneNumber,
             course: props.course || "",
             branch: props.branch || "",
@@ -40,6 +40,33 @@ export default class EditProfile extends React.Component {
                             value={this.state.course}
                             type="text"
                             placeholder="Enter Course" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Branch</Form.Label>
+                        <Form.Control
+                            onChange={e => this.handleFieldUpdate("branch", e.target.value)}
+                            value={this.state.branch}
+                            type="text"
+                            placeholder="Enter branch" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Passout Year</Form.Label>
+                        <Form.Control
+                            onChange={e => this.handleFieldUpdate("passoutYear", e.target.value)}
+                            value={this.state.passoutYear}
+                            type="text"
+                            placeholder="Enter Passout Year" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control
+                            onChange={e => this.handleFieldUpdate("phoneNumber", e.target.value)}
+                            value={this.state.phoneNumber}
+                            type="number"
+                            placeholder="Enter Phone Number" />
                     </Form.Group>
                 </Form>
             </Modal.Body>

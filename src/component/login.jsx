@@ -1,7 +1,6 @@
-import { Grid, TextField } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
-import { Link } from 'react-router';
-import { Button, Container, Nav } from "react-bootstrap";
+import { Button, Container, Form, FormGroup, Nav,FormControl } from "react-bootstrap";
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +9,7 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      validated: "false",
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -17,8 +17,13 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    this.props.login(this.state.email, this.state.password);
+    const form = e.currntTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.login(this.state.email, this.state.password);
+    }
+    this.setState({ validated: true });
   }
 
   handleTextChange(value, field) {
@@ -31,20 +36,30 @@ class Login extends React.Component {
         style={{ height: "250px", width: "600px", paddingTop: "200px" }}
       >
         <h3 style={{ paddingLeft: "230px" }}>Sign in</h3>
-        <form onSubmit={this.handleSubmit} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-
-            required
-            fullWidth
-            value={this.state.email}
-            onChange={(e) => this.handleTextChange(e.target.value, "email")}
-            type="email" id="email" label="Email Address" name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
+        <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
+          <FormGroup>
+            <FormControl
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              value={this.state.email}
+              onChange={(e) => this.handleTextChange(e.target.value, "email")}
+              type="email"
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Email.
+            </Form.Control.Feedback>
+          </FormGroup>
+          
+          <FormGroup>
+            <FormControl
             variant="outlined"
             margin="normal"
             required
@@ -57,6 +72,11 @@ class Login extends React.Component {
             id="password"
             autoComplete="current-password"
           />
+          <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your password.
+            </Form.Control.Feedback>
+          </FormGroup>
           <Button
             type="submit"
             style={{ width: "570px", paddingTop: "10px" }}
@@ -65,16 +85,14 @@ class Login extends React.Component {
             Sign In
           </Button>
           <Grid container style={{ paddingTop: "10px" }}>
-            <Grid item xs>
-              <Link to="forget" variant="body2">
-                {"Forgot password?"}
-              </Link>
+            <Grid item>
+              <Nav.Link href="/forget">Forgot password?</Nav.Link>
             </Grid>
             <Grid item>
               <Nav.Link href="/signup">Don't have an account? Sign Up</Nav.Link>
             </Grid>
           </Grid>
-        </form>
+        </Form>
       </Container>
       /*<div className="main">
         <Form className="form" onSubmit={this.handleSubmit}>

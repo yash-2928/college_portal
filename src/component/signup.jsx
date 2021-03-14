@@ -18,6 +18,7 @@ class Signup extends React.Component {
       gender: "MALE",
       dateOfBirth: "",
       password: "",
+      validated: "false",
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -27,8 +28,13 @@ class Signup extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    signUp({ ...this.state }).then((data) => alert(data.message));
+    const form = e.currentTarget;
+    if(form.checkValidity() === false){
+      e.preventDefault();
+      e.stopPropagation();
+      signUp({ ...this.state }).then((data) => alert(data.message));
+    }
+    this.setState({validated: true})
   }
 
   handleTextChange(value, field) {
@@ -53,7 +59,7 @@ class Signup extends React.Component {
         style={{ height: "700px", width: "600px", paddingTop: "30px" }}
       >
         <h4 style={{ paddingLeft: "240px", paddingBottom: "20px" }}>Sign Up</h4>
-        <Form onSubmit={this.handleSubmit}>
+        <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicText" variant="outlined">
             <Form.Label>Enrollment No</Form.Label>
             <Form.Control
@@ -62,9 +68,13 @@ class Signup extends React.Component {
                 this.handleNumberChange(e.target.value, "enrollmentNo")
               }
               required
-              type="number"
+              type="text"
               placeholder="Enter Enrollment No"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Enrollment Number.
+            </Form.Control.Feedback>
           </Form.Group>
 
         <Form.Row>
@@ -79,6 +89,10 @@ class Signup extends React.Component {
               type="text"
               placeholder="Enter First Name"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your First Name.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formBasicText">
@@ -92,6 +106,10 @@ class Signup extends React.Component {
               type="text"
               placeholder="Enter Last Name"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Last Name.
+            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
 
@@ -107,6 +125,10 @@ class Signup extends React.Component {
               type="text"
               placeholder="Enter your Course"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Course.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formBasicText">
@@ -119,7 +141,11 @@ class Signup extends React.Component {
               required
               type="text"
               placeholder="Enter your branch"
-            />
+            />           
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Branch.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formBasicText" variant="outlined">
@@ -130,9 +156,13 @@ class Signup extends React.Component {
                 this.handleNumberChange(e.target.value, "passoutYear")
               }
               required
-              type="number"
+              type="text"
               placeholder="2017-2021"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Passout Year.
+            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
 
@@ -147,6 +177,10 @@ class Signup extends React.Component {
               type="date"
               placeholder="Enter your Date of Birth"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please add your Date of Birth.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
@@ -157,7 +191,11 @@ class Signup extends React.Component {
               required
               type="email"
               placeholder="Enter email"
-            />
+            />            
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your Email.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicText">
@@ -168,9 +206,13 @@ class Signup extends React.Component {
                 this.handleNumberChange(e.target.value, "phoneNumber")
               }
               required
-              type="number"
+              type="text"
               placeholder="Enter your Phone No"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide your valid Phone Number.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicText">
@@ -204,6 +246,10 @@ class Signup extends React.Component {
               type="password"
               placeholder="Password"
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please choose strong Password.
+            </Form.Control.Feedback>
           </Form.Group>
           <Button
             style={{ width: "570px", paddingTop: "10px" }}
