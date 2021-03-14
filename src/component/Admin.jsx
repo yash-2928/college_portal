@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Table, Accordion, Button } from "react-bootstrap";
 import UserService from "../service/userService";
 import PostService from "../service/postService"
+import ReportService from "../service/reportService"
 import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
 import User from "./User";
@@ -17,11 +18,13 @@ export default class Admin extends React.Component {
       users: [],
       posts: [],
       jobs: [],
+      reports: []
     };
 
     this.userService = new UserService(this.state.currentUser.accessToken);
     this.postService = new PostService(this.state.currentUser.accessToken);
     this.jobService = new JobService(this.state.currentUser.accessToken);
+    this.reportService = new ReportService(this.state.currentUser.accessToken);
 
     this.loadUsers = this.loadUsers.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
@@ -29,6 +32,7 @@ export default class Admin extends React.Component {
     this.deletePost = this.deletePost.bind(this);
     this.loadJob = this.loadJob.bind(this);
     this.deleteJob = this.deleteJob.bind(this);
+    this.loadReports = this.loadReports.bind(this);
   }
 
   loadUsers() {
@@ -47,6 +51,10 @@ export default class Admin extends React.Component {
     });
   }
 
+  loadReports() {
+    this.reportService.getReports().then(reports => this.setState({ reports }))
+  }
+
   deletePost(postId) {
     this.postService.deletePost(postId).then(() => this.loadPost());
   }
@@ -61,10 +69,15 @@ export default class Admin extends React.Component {
     this.jobService.deleteJob(jobId).then(() => this.loadJob());
   }
 
+  deleteReport(reportId) {
+    this.reportService.deleteReport(reportId).then(this.loadReports)
+  }
+
   componentDidMount() {
     this.loadUsers();
     this.loadPost();
     this.loadJob();
+    this.loadReports();
   }
 
   render() {

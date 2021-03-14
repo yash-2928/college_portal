@@ -49,7 +49,9 @@ class App extends React.Component {
               logout={this.handleLogout}
               isAdmin={this.state.currentUser.isAdmin}
             />
-            <Body isAdmin={this.state.currentUser.isAdmin} />
+            <Body
+              isAdmin={this.state.currentUser.isAdmin}
+              logout={this.handleLogout} />
           </>
         </div>
       );

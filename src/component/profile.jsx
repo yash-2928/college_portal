@@ -19,8 +19,8 @@ class Profile extends React.Component {
       userData: {},
       posts: [],
       jobs: [],
-      password: "",
       showEditModal: false,
+      showEditPasswordModal: false
     };
 
     this.postService = new PostService(this.state.currentUser.accessToken);
@@ -35,11 +35,21 @@ class Profile extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.updateUser = this.updateUser.bind(this);
-    this.updatePassword = this.updatePassword(this);
+    this.updatePassword = this.updatePassword.bind(this);
+    this.showEditPasswordModal = this.showEditPasswordModal.bind(this);
+    this.closeEditPasswordModal = this.closeEditPasswordModal.bind(this);
   }
 
   showModal() {
     this.setState({ showEditModal: true });
+  }
+
+  showEditPasswordModal() {
+    this.setState({ showEditPasswordModal: true })
+  }
+
+  closeEditPasswordModal() {
+    this.setState({ showEditPasswordModal: false })
   }
 
   closeModal() {
@@ -87,15 +97,16 @@ class Profile extends React.Component {
       });
   }
 
-  updatePassword(updatePassword) {
+  updatePassword(currentPassword, newPassword) {
     this.profileService
-      .updatePasswordRequest({
-        id: this.state.currentUser.userId,
-        currentPassword: this.state.currentUser.password,
-        ...updatePassword,
-      })
-      .then((data) => {
-        this.setState({ password: this.state.userData.password });
+      .updatePasswordRequest(
+        this.state.currentUser.userId,
+        currentPassword,
+        newPassword,
+      )
+      .then((message) => {
+        alert(message);
+        this.props.logout();
       });
   }
 
@@ -113,9 +124,9 @@ class Profile extends React.Component {
 
         <EditPassword
           {...this.state.currentUser.password}
-          show={this.state.showEditModal}
-          close={this.closeModal}
-          updateUser={this.updateUser}
+          show={this.state.showEditPasswordModal}
+          close={this.closeEditPasswordModal}
+          updatePassword={this.updatePassword}
         />
 
         <Container
@@ -143,7 +154,7 @@ class Profile extends React.Component {
                 roundedCircle
               />
               <Button onClick={this.showModal}>Edit Profile</Button>
-              <Button onClick={this.showModal}>Change Password</Button>
+              <Button onClick={this.showEditPasswordModal}>Change Password</Button>
             </Col>
             <Col
               style={{

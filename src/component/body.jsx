@@ -13,7 +13,7 @@ class Body extends React.Component {
           {this.props.isAdmin && <Route path="/admin" component={Admin} />}
           <Route path="/post" component={() => <Post isAdmin={this.props.isAdmin} />} />
           <Route path="/job" component={() => <Job isAdmin={this.props.isAdmin} />} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile" component={() => <Profile logout={this.props.logout} />} />
         </div>
       </Router>
     );

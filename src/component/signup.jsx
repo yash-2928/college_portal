@@ -29,12 +29,12 @@ class Signup extends React.Component {
 
   handleSubmit(e) {
     const form = e.currentTarget;
-    if(form.checkValidity() === false){
+    if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
       signUp({ ...this.state }).then((data) => alert(data.message));
     }
-    this.setState({validated: true})
+    this.setState({ validated: true })
   }
 
   handleTextChange(value, field) {
@@ -59,7 +59,7 @@ class Signup extends React.Component {
         style={{ height: "700px", width: "600px", paddingTop: "30px" }}
       >
         <h4 style={{ paddingLeft: "240px", paddingBottom: "20px" }}>Sign Up</h4>
-        <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
+        <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicText" variant="outlined">
             <Form.Label>Enrollment No</Form.Label>
             <Form.Control
@@ -77,96 +77,96 @@ class Signup extends React.Component {
             </Form.Control.Feedback>
           </Form.Group>
 
-        <Form.Row>
-          <Form.Group as={Col} controlId="formBasicText">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              value={this.state.firstName}
-              onChange={(e) =>
-                this.handleTextChange(e.target.value, "firstname")
-              }
-              required
-              type="text"
-              placeholder="Enter First Name"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your First Name.
+          <Form.Row>
+            <Form.Group as={Col} controlId="formBasicText">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                value={this.state.firstName}
+                onChange={(e) =>
+                  this.handleTextChange(e.target.value, "firstname")
+                }
+                required
+                type="text"
+                placeholder="Enter First Name"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Please provide your First Name.
             </Form.Control.Feedback>
-          </Form.Group>
+            </Form.Group>
 
-          <Form.Group as={Col} controlId="formBasicText">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control
-              value={this.state.lastName}
-              onChange={(e) =>
-                this.handleTextChange(e.target.value, "lastname")
-              }
-              required
-              type="text"
-              placeholder="Enter Last Name"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Last Name.
+            <Form.Group as={Col} controlId="formBasicText">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                value={this.state.lastName}
+                onChange={(e) =>
+                  this.handleTextChange(e.target.value, "lastname")
+                }
+                required
+                type="text"
+                placeholder="Enter Last Name"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Please provide your Last Name.
             </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
+            </Form.Group>
+          </Form.Row>
 
-        <Form.Row>
-          <Form.Group as={Col} controlId="formBasicText">
-            <Form.Label>Course</Form.Label>
-            <Form.Control
-              value={this.state.course}
-              onChange={(e) =>
-                this.handleTextChange(e.target.value, "course")
-              }
-              required
-              type="text"
-              placeholder="Enter your Course"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Course.
+          <Form.Row>
+            <Form.Group as={Col} controlId="formBasicText">
+              <Form.Label>Course</Form.Label>
+              <Form.Control
+                value={this.state.course}
+                onChange={(e) =>
+                  this.handleTextChange(e.target.value, "course")
+                }
+                required
+                type="text"
+                placeholder="Enter your Course"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Please provide your Course.
             </Form.Control.Feedback>
-          </Form.Group>
+            </Form.Group>
 
-          <Form.Group as={Col} controlId="formBasicText">
-            <Form.Label>Branch</Form.Label>
-            <Form.Control
-              value={this.state.branch}
-              onChange={(e) =>
-                this.handleTextChange(e.target.value, "branch")
-              }
-              required
-              type="text"
-              placeholder="Enter your branch"
-            />           
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Branch.
+            <Form.Group as={Col} controlId="formBasicText">
+              <Form.Label>Branch</Form.Label>
+              <Form.Control
+                value={this.state.branch}
+                onChange={(e) =>
+                  this.handleTextChange(e.target.value, "branch")
+                }
+                required
+                type="text"
+                placeholder="Enter your branch"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Please provide your Branch.
             </Form.Control.Feedback>
-          </Form.Group>
+            </Form.Group>
 
-          <Form.Group as={Col} controlId="formBasicText" variant="outlined">
-            <Form.Label>Passout Year</Form.Label>
-            <Form.Control
-              value={this.state.passoutYear}
-              onChange={(e) =>
-                this.handleNumberChange(e.target.value, "passoutYear")
-              }
-              required
-              type="text"
-              placeholder="2017-2021"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Passout Year.
+            <Form.Group as={Col} controlId="formBasicText" variant="outlined">
+              <Form.Label>Passout Year</Form.Label>
+              <Form.Control
+                value={this.state.passoutYear}
+                onChange={(e) =>
+                  this.handleNumberChange(e.target.value, "passoutYear")
+                }
+                required
+                type="text"
+                placeholder="2017-2021"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Please provide your Passout Year.
             </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
+            </Form.Group>
+          </Form.Row>
 
-        <Form.Group controlId="formBasicText">
+          <Form.Group controlId="formBasicText">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               value={this.state.dateOfBirth}
@@ -191,7 +191,7 @@ class Signup extends React.Component {
               required
               type="email"
               placeholder="Enter email"
-            />            
+            />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
               Please provide your Email.

@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import { Button, Container, Form, FormGroup, Nav,FormControl } from "react-bootstrap";
+import { Button, Container, Form, FormGroup, Nav, FormControl } from "react-bootstrap";
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      validated: "false",
+      validated: false,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -17,13 +17,14 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    const form = e.currntTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
+    const form = e.currentTarget;
+    const validated = form.checkValidity();
+    if (validated) {
       this.props.login(this.state.email, this.state.password);
     }
-    this.setState({ validated: true });
+    this.setState({ validated });
   }
 
   handleTextChange(value, field) {
@@ -36,14 +37,14 @@ class Login extends React.Component {
         style={{ height: "250px", width: "600px", paddingTop: "200px" }}
       >
         <h3 style={{ paddingLeft: "230px" }}>Sign in</h3>
-        <Form onSubmit={this.handleSubmit} noValidate validated={validated}>
+        <Form onSubmit={this.handleSubmit} noValidate validated={this.state.validated}>
           <FormGroup>
             <FormControl
               variant="outlined"
               margin="normal"
               required
-              fullWidth
               value={this.state.email}
+              placeholder={"Enter Email Address"}
               onChange={(e) => this.handleTextChange(e.target.value, "email")}
               type="email"
               id="email"
@@ -57,22 +58,22 @@ class Login extends React.Component {
               Please provide your Email.
             </Form.Control.Feedback>
           </FormGroup>
-          
+
           <FormGroup>
             <FormControl
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value={this.state.password}
-            onChange={(e) => this.handleTextChange(e.target.value, "password")}
-            type="password"
-            name="password"
-            label="Password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
+              variant="outlined"
+              margin="normal"
+              required
+              value={this.state.password}
+              placeholder={"Enter Password"}
+              onChange={(e) => this.handleTextChange(e.target.value, "password")}
+              type="password"
+              name="password"
+              label="Password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
               Please provide your password.
             </Form.Control.Feedback>

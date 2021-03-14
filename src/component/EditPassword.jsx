@@ -1,47 +1,43 @@
 import { Form, Button, Modal } from 'react-bootstrap';
-import React from 'react'
+import React, { useState } from 'react'
 
-export default class EditPassword extends React.Component {
-    constructor(props) {
-        super(props);
+export default function EditPassword(props) {
 
-        this.state = {
-            password: props.currentUser.password
+    const [currentPassword, setCurrentPassword] = useState("")
+    const [newPassword, setNewPassword] = useState("")
+
+    const updatePassword = () => {
+        if (currentPassword && newPassword) {
+            props.updatePassword(currentPassword, newPassword)
         }
-
-        this.updatePasswordRequest = this.updatePasswordRequest.bind(this)
-        this.handleFieldUpdate = this.handleFieldUpdate.bind(this)
     }
 
-    handleFieldUpdate(field, value) {
-        this.setState({ [field]: value });
-    }
-
-    updatePassword() {
-        this.props.updatePasswordRequest({ ...this.state });
-        this.props.close();
-    }
-
-    render() {
-        return <Modal show={this.props.show} onHide={this.props.close}>
-            <Modal.Header closeButton>
-                <Modal.Title>Change Password</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            onChange={e => this.handleFieldUpdate("password", e.target.value)}
-                            value={this.state.password}
-                            type="password"
-                            placeholder="Enter new Password" />
-                    </Form.Group>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={this.updatePassword}>Update</Button>
-            </Modal.Footer>
-        </Modal>
-    }
+    return <Modal show={props.show} onHide={props.close}>
+        <Modal.Header closeButton>
+            <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Form>
+                <Form.Group>
+                    <Form.Label>Current Password</Form.Label>
+                    <Form.Control
+                        onChange={e => setCurrentPassword(e.target.value)}
+                        value={currentPassword}
+                        type="password"
+                        placeholder="Enter Current Password" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>New Password</Form.Label>
+                    <Form.Control
+                        onChange={e => setNewPassword(e.target.value)}
+                        value={newPassword}
+                        type="password"
+                        placeholder="Enter New Password" />
+                </Form.Group>
+            </Form>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={updatePassword}>Update</Button>
+        </Modal.Footer>
+    </Modal>
 }

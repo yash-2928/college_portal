@@ -31,7 +31,7 @@ export default class ProfileService {
             body: JSON.stringify(userUpdateRequest)
         }).then(resp => resp.json())
             .catch(error => {
-                alert(error);
+                console.log(error)
             })
     }
 
@@ -48,7 +48,7 @@ export default class ProfileService {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(requestBody)
-        }).then(resp => alert(resp.text()))
+        }).then(resp => resp.text())
             .catch(error => alert(error))
     }
 

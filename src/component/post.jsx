@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import CommentService from "../service/commentService";
 import PostService from "../service/postService";
+import ReportService from "../service/reportService";
 import { getSignedInUser } from "../util/common";
 import CreatePost from "./CreatePost";
 import Postitem from "./PostItem";
@@ -22,9 +23,11 @@ class Post extends React.Component {
     this.commentService = new CommentService(
       this.state.currentUser.accessToken
     );
+    this.reportService = new ReportService(this.state.currentUser.accessToken);
     this.loadPosts = this.loadPosts.bind(this);
     this.createPost = this.createPost.bind(this);
     this.createComment = this.createComment.bind(this);
+    this.reportPost = this.reportPost.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +60,14 @@ class Post extends React.Component {
     });
   }
 
+  reportPost(postId, message) {
+    this.reportService.reportPost(
+      this.state.currentUser.userId,
+      postId,
+      message
+    ).then(text => alert(text))
+  }
+
   createComment(postId, content) {
     this.commentService
       .createComment(this.state.currentUser.userId, postId, content)
@@ -72,6 +83,7 @@ class Post extends React.Component {
             <Postitem
               isAdmin={this.props.isAdmin}
               createComment={this.createComment}
+              report={this.reportPost}
               key={i}
               {...post}
             />

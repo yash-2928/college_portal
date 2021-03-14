@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import { Comment, Delete, Favorite, Report } from "@material-ui/icons";
 import React, { useState } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Form, Button, Popover, Card, Container, OverlayTrigger, Col } from "react-bootstrap";
 import CommentItem from "./CommentItem";
 import CreateComment from "./CreateComment";
 import DocumentView from './DocumentView';
@@ -28,6 +28,7 @@ export function PostTable(props) {
 
 export default function Postitem(props) {
   const [showComments, setShow] = useState(false)
+  const [reportMessage, setReportMessage] = useState("")
 
   return (
     <Container style={{ paddingTop: "20px" }} fixed>
@@ -52,7 +53,24 @@ export default function Postitem(props) {
             <CreateComment createComment={(content) => props.createComment(props.postId, content)} />
             {props.comments.map((comment, i) => <CommentItem key={i} {...comment} />)}
           </div>}
-          <IconButton style={{ alignItems: "flex-end" }}><Report /></IconButton>
+          <OverlayTrigger trigger="click" placement="right"
+            overlay={<Popover id="popover-basic">
+              <Popover.Title as="h3">Report Message</Popover.Title>
+              <Popover.Content>
+                <Form>
+                  <Form.Row className="align-items-center">
+                    <Col xs="auto">
+                      <Form.Control className="mb-2" value={reportMessage} onChange={e => setReportMessage(e.target.value)} type="text" placeholder="Write something..." />
+                    </Col>
+                    <Col xs="auto">
+                      <Button className="mb-2" onClick={() => props.report(props.postId, reportMessage)} >Report</Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+              </Popover.Content>
+            </Popover>}>
+            <IconButton style={{ alignItems: "flex-end" }}><Report /></IconButton>
+          </OverlayTrigger>
         </Card.Footer>
       </Card>
     </Container>
