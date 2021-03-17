@@ -153,7 +153,7 @@ class Profile extends React.Component {
                 src={Purple}
                 roundedCircle
               />
-              <Button onClick={this.showModal}>Edit Profile</Button>
+              <Button onClick={this.showModal}>Edit Profile</Button>{''}
               <Button onClick={this.showEditPasswordModal}>Change Password</Button>
             </Col>
             <Col

@@ -18,7 +18,7 @@ class Signup extends React.Component {
       gender: "MALE",
       dateOfBirth: "",
       password: "",
-      validated: "false",
+      validated: false,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -28,14 +28,16 @@ class Signup extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
+    const validated = form.checkValidity();
+    if (validated) {
       signUp({ ...this.state }).then((data) => alert(data.message));
     }
-    this.setState({ validated: true })
+    this.setState({ validated });
   }
+ 
 
   handleTextChange(value, field) {
     this.setState({ [field]: value });

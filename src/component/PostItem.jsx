@@ -1,5 +1,5 @@
 import { IconButton } from "@material-ui/core";
-import { Comment, Delete, Favorite, Report } from "@material-ui/icons";
+import { CloudDownloadRounded, Comment, Delete, Favorite, Report } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Form, Button, Popover, Card, Container, OverlayTrigger, Col } from "react-bootstrap";
 import CommentItem from "./CommentItem";
@@ -30,24 +30,30 @@ export default function Postitem(props) {
   const [showComments, setShow] = useState(false)
   const [reportMessage, setReportMessage] = useState("")
 
+  anotherUser = () => {
+    
+  }
+
   return (
     <Container style={{ paddingTop: "20px" }} fixed>
       <Card>
         <Card.Header>
           <Card.Title>
-            <span>{props.user.firstname} {props.user.lastname}
+            <Nav.Link href="/profile" onclick={anotherUser}>{props.user.firstname} {props.user.lastname}
               {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
-            </span>
+            </Nav.Link>
           </Card.Title>
         </Card.Header>
 
         <Card.Body>
           <Card.Text>{props.postTitle}</Card.Text>
           <p>{props.content}</p>
-          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={100} height={100} />}
+          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={400} height={200} />}
         </Card.Body>
         <Card.Footer>
-          <IconButton><Favorite /></IconButton>
+        <a href={props.fileUrl} target="_blank" rel="noopener noreferrer" download>
+          <IconButton><CloudDownloadRounded /></IconButton>
+          </a>
           <IconButton onClick={() => setShow(!showComments)}><Comment /></IconButton>
           {showComments && <div>
             <CreateComment createComment={(content) => props.createComment(props.postId, content)} />

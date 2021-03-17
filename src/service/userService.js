@@ -1,3 +1,4 @@
+import Postitem from "../component/PostItem";
 import { API_URL } from "./config"
 
 const USER_PATH = "/admin/api"
@@ -16,6 +17,13 @@ export default class UserService {
 
     getUsers() {
         return fetch(API_URL + USER_PATH + "/users", {
+            headers: this.getAuthorizationHeader()
+        }).then(resp => resp.json())
+    }
+
+    getUser() {
+        return fetch(API_URL + USER_PATH + "/user/" + userId, {
+            method: "POST",
             headers: this.getAuthorizationHeader()
         }).then(resp => resp.json())
     }

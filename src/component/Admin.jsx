@@ -133,7 +133,7 @@ export default class Admin extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.posts.map((post, i) => (
+                    {this.state.posts && this.state.posts.map((post, i) => (
                       <PostTable
                         key={i}
                         deletePost={this.deletePost}
@@ -167,7 +167,7 @@ export default class Admin extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.jobs.map((job, i) => (
+                    {this.state.jobs && this.state.jobs.map((job, i) => (
                       <JobTable
                         key={i}
                         deleteJob={this.deleteJob}
