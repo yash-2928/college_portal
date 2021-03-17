@@ -21,13 +21,6 @@ export default class UserService {
         }).then(resp => resp.json())
     }
 
-    getUser() {
-        return fetch(API_URL + USER_PATH + "/user/" + userId, {
-            method: "POST",
-            headers: this.getAuthorizationHeader()
-        }).then(resp => resp.json())
-    }
-
     deleteUser(userId) {
         return fetch(API_URL + USER_PATH + "/users/" + userId, {
             method: "DELETE",
