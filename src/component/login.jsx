@@ -9,8 +9,8 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      email: {value: '', isValid: true, message: ''},
-      password: {value: '', isValid: true, message: ''},
+      email: { value: '', isValid: true, message: '' },
+      password: { value: '', isValid: true, message: '' },
       //validated: false,
     };
 
@@ -37,7 +37,7 @@ class Login extends React.Component {
     this.resetValidationStates();
     const validated = this.formIsValid();
     if (validated) {
-      this.props.login(this.state.email, this.state.password);
+      this.props.login(this.state.email.value, this.state.password.value);
     }
     this.setState({ validated });
   }
@@ -59,8 +59,8 @@ class Login extends React.Component {
   }
 
   formIsValid = () => {
-    const email = {...this.state.email };
-    const password = {...this.state.password };
+    const email = { ...this.state.email };
+    const password = { ...this.state.password };
     let isGood = true;
 
     if (!validator.isEmail(email.value)) {
@@ -84,11 +84,11 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     const emailGroupClass = classNames('form-group',
-          { 'has-error': !email.isValid }
-        );
-        const passwordGroupClass = classNames('form-group',
-          { 'has-error': !password.isValid }
-        );
+      { 'has-error': !email.isValid }
+    );
+    const passwordGroupClass = classNames('form-group',
+      { 'has-error': !password.isValid }
+    );
 
     return (
       <Container
@@ -139,7 +139,7 @@ class Login extends React.Component {
               <Nav.Link href="/forget">Forgot password?</Nav.Link>
             </Grid>
             <Grid item>
-              <Nav.Link style={{paddingLeft:"20px"}} href="/signup">Don't have an account? Sign Up</Nav.Link>
+              <Nav.Link style={{ paddingLeft: "20px" }} href="/signup">Don't have an account? Sign Up</Nav.Link>
             </Grid>
           </Grid>
         </Form>

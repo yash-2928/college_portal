@@ -1,38 +1,33 @@
 import { IconButton } from "@material-ui/core";
 import { Dashboard, Person, PhotoLibrary, Work } from "@material-ui/icons";
 import React from "react";
-import { Nav, Sidenav } from "rsuite";
+import { Icon, Nav, Sidenav } from "rsuite";
 
-class Drower extends React.Component {
-  
-  render() {
-    return (
-        <div style={{ width: 250 }}>
-        <Sidenav activeKey="1">
-          <Sidenav.Body>
-            <Nav>
-              <Nav.Link eventKey="1">
-              <IconButton><Dashboard /></IconButton>
+export default function Drower(props) {
+
+  return (
+    <div style={{ width: 250 }}>
+      <Sidenav activeKey="1">
+        <Sidenav.Body>
+          <Nav>
+            <Nav.Item eventKey="1" icon={<Icon icon="dashboard" />}>
               Dashboard
-              </Nav.Link>
-              <Nav.Link eventKey="2">
+              </Nav.Item>
+            <Nav.Item eventKey="2">
               <IconButton><Person /></IconButton>
-                User 
-              </Nav.Link>
-              <Nav.Link eventKey="3">
+                User
+              </Nav.Item>
+            <Nav.Item eventKey="3">
               <IconButton><PhotoLibrary /></IconButton>
                 Posts
-              </Nav.Link>
-              <Nav.Link eventKey="4">
+              </Nav.Item>
+            <Nav.Item eventKey="4">
               <IconButton><Work /></IconButton>
                 Jobs
-              </Nav.Link>
-            </Nav>
-          </Sidenav.Body>
-        </Sidenav>
-      </div>
-    );
-  }
+              </Nav.Item>
+          </Nav>
+        </Sidenav.Body>
+      </Sidenav>
+    </div>
+  );
 }
-
-export default Drower;

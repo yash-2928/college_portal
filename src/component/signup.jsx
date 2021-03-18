@@ -33,11 +33,11 @@ class Signup extends React.Component {
     const form = e.currentTarget;
     const validated = form.checkValidity();
     if (validated) {
-      signUp({ ...this.state }).then((data) => alert(data.message));
+      signUp({ ...this.state }).then((data) => alert(JSON.stringify(data)));
     }
     this.setState({ validated });
   }
- 
+
 
   handleTextChange(value, field) {
     this.setState({ [field]: value });

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Table, Accordion, Button } from "react-bootstrap";
+import { Row, Col, Table, Accordion, Button, Tabs, Container } from "react-bootstrap";
 import UserService from "../service/userService";
 import PostService from "../service/postService"
 import ReportService from "../service/reportService"
@@ -8,7 +8,8 @@ import { getSignedInUser } from "../util/common";
 import User from "./User";
 import { PostTable } from "./PostItem";
 import { JobTable } from "./JobItem";
-import Drower from "./drower";
+import { Tab } from "bootstrap";
+import UserCard from "./UserCard";
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -83,106 +84,80 @@ export default class Admin extends React.Component {
 
   render() {
     return (
-      <>
-      <Drower />
-        <Accordion defaultActiveKey="0">
-          <Card>
-            <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                User
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>Enrollment No</th>
-                      <th>Email</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.users.map((user, i) => (
-                      <User key={i} deleteUser={this.deleteUser} {...user} />
-                    ))}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
+      <Tabs defaultActiveKey="user">
+        <Tab eventKey="user" title="User">
+          <Container>
+            <Row md={4}>
+              {this.state.users.map((user, i) => <Col key={i} style={{ margin: "8px" }}><UserCard {...user} /></Col>)}
+            </Row>
+          </Container>
+          {/* <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Enrollment No</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.users.map((user, i) => (
+                <User key={i} deleteUser={this.deleteUser} {...user} />
+              ))}
+            </tbody>
+          </Table> */}
+        </Tab>
+        <Tab eventKey="post" title="Post">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Post Title</th>
+                <th>Post Content</th>
+                <th>File</th>
+                <th>Reported</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.posts && this.state.posts.map((post, i) => (
+                <PostTable
+                  key={i}
+                  deletePost={this.deletePost}
+                  {...post}
+                />
+              ))}
+            </tbody>
+          </Table>
+        </Tab>
 
-          <Card>
-            <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                Post
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="1">
-              <Card.Body>
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>Post Title</th>
-                      <th>Post Content</th>
-                      <th>File</th>
-                      <th>Reported</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.posts && this.state.posts.map((post, i) => (
-                      <PostTable
-                        key={i}
-                        deletePost={this.deletePost}
-                        {...post}
-                      />
-                    ))}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-
-          <Card>
-            <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="2">
-                Job
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="2">
-              <Card.Body>
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>Job Title</th>
-                      <th>Job Item</th>
-                      <th>Files</th>
-                      <th>Reported</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.jobs && this.state.jobs.map((job, i) => (
-                      <JobTable
-                        key={i}
-                        deleteJob={this.deleteJob}
-                        {...job}
-                      />
-                    ))}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
-      </>
+        <Tab eventKey="job" title="Job">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Job Title</th>
+                <th>Job Item</th>
+                <th>Files</th>
+                <th>Reported</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.jobs && this.state.jobs.map((job, i) => (
+                <JobTable
+                  key={i}
+                  deleteJob={this.deleteJob}
+                  {...job}
+                />
+              ))}
+            </tbody>
+          </Table>
+        </Tab>
+      </Tabs>
     );
   }
 }
@@ -199,7 +174,7 @@ export default class Admin extends React.Component {
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </div> 
+        </div>
         <Divider />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
