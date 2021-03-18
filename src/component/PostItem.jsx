@@ -42,9 +42,9 @@ export default function Postitem(props) {
         </Card.Header>
 
         <Card.Body>
-          <Card.Text>{props.postTitle}</Card.Text>
+          <Card.Text><strong>{props.postTitle}</strong></Card.Text>
           <p>{props.content}</p>
-          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={400} height={200} />}
+          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={800} height={650} />}
         </Card.Body>
         <Card.Footer>
           <a href={props.fileUrl} target="_blank" rel="noopener noreferrer" download>

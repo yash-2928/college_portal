@@ -8,6 +8,7 @@ import { getSignedInUser } from "../util/common";
 import User from "./User";
 import { PostTable } from "./PostItem";
 import { JobTable } from "./JobItem";
+import Drower from "./drower";
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -83,6 +84,7 @@ export default class Admin extends React.Component {
   render() {
     return (
       <>
+      <Drower />
         <Accordion defaultActiveKey="0">
           <Card>
             <Card.Header>
@@ -188,11 +190,29 @@ export default class Admin extends React.Component {
 // ReportDashboard
 // Create Job
 
-/*  <Drawer
+/*<Drawer
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <div>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div> 
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+</Drawer>
+
+ <Drawer
         variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
         open={open}
       >
         <div className={classes.toolbarIcon}>

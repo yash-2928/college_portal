@@ -40,11 +40,11 @@ export default function Jobitem(props) {
           </Card.Title>
         </Card.Header>
         <Card.Body>
-          <Card.Text>{props.companyName}</Card.Text>
-          <Card.Text>{props.jobTitle}</Card.Text>
+          <Card.Text><strong>{props.companyName}</strong></Card.Text>
+          <Card.Text><strong>{props.jobTitle}</strong></Card.Text>
           <p>{props.content}</p>
           <Card.Text>{props.link}</Card.Text>
-          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} />}
+          {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={800} height={650}/>}
         </Card.Body>
         <Card.Footer>
           <IconButton onClick={() => setShow(!showComments)}><Comment /></IconButton>

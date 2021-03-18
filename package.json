@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "reactstrap": "^8.9.0",
+    "rsuite": "^4.9.3",
     "simple-react-validator": "^1.6.0",
     "validator": "^13.5.2",
     "web-vitals": "^0.2.4"

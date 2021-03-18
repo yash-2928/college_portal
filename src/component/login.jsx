@@ -1,5 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
+import classNames from 'classnames';
+import validator from 'validator';
 import { Button, Container, Form, FormGroup, Nav, FormControl } from "react-bootstrap";
 
 class Login extends React.Component {
@@ -7,20 +9,33 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
-      validated: false,
+      email: {value: '', isValid: true, message: ''},
+      password: {value: '', isValid: true, message: ''},
+      //validated: false,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
+    //this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  onChange = (e) => {
+    const state = {
+      ...this.state,
+      [e.target.name]: {
+        ...this.state[e.target.name],
+        value: e.target.value,
+      }
+    };
+    this.setState(state);
+  }
+
 
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const form = e.currentTarget;
-    const validated = form.checkValidity();
+    this.resetValidationStates();
+    const validated = this.formIsValid();
     if (validated) {
       this.props.login(this.state.email, this.state.password);
     }
@@ -31,52 +46,86 @@ class Login extends React.Component {
     this.setState({ [field]: value });
   }
 
+  resetValidationStates = () => {
+    const state = JSON.parse(JSON.stringify(this.state));
+    Object.keys(state).map(key => {
+      if (state[key].hasOwnProperty('isValid')) {
+        state[key].isValid = true;
+        state[key].message = '';
+      }
+    });
+
+    this.setState(state);
+  }
+
+  formIsValid = () => {
+    const email = {...this.state.email };
+    const password = {...this.state.password };
+    let isGood = true;
+
+    if (!validator.isEmail(email.value)) {
+      email.isValid = false;
+      email.message = 'email in not valid';
+      isGood = false;
+    }
+
+    // perform addtion validation on password and confirmPassword here...
+
+    if (!isGood) {
+      this.setState({
+        email,
+        password,
+      });
+    }
+    return isGood;
+  }
+
   render() {
+    const { email, password } = this.state;
+
+    const emailGroupClass = classNames('form-group',
+          { 'has-error': !email.isValid }
+        );
+        const passwordGroupClass = classNames('form-group',
+          { 'has-error': !password.isValid }
+        );
+
     return (
       <Container
         style={{ height: "250px", width: "600px", paddingTop: "200px" }}
       >
-        <h3 style={{ paddingLeft: "230px" }}>Sign in</h3>
-        <Form onSubmit={this.handleSubmit} noValidate validated={this.state.validated}>
-          <FormGroup>
+        <h3 style={{ paddingLeft: "230px" }}><strong>Sign in</strong></h3>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup className={emailGroupClass}>
             <FormControl
               variant="outlined"
               margin="normal"
               required
-              value={this.state.email}
+              value={this.state.email.value}
               placeholder={"Enter Email Address"}
-              onChange={(e) => this.handleTextChange(e.target.value, "email")}
+              onChange={this.onChange}
               type="email"
-              id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               autoFocus
             />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Email.
-            </Form.Control.Feedback>
+            <Form.Control.Feedback>{this.state.email.message}</Form.Control.Feedback>
           </FormGroup>
 
-          <FormGroup>
+          <FormGroup className={passwordGroupClass}>
             <FormControl
               variant="outlined"
               margin="normal"
               required
-              value={this.state.password}
+              value={this.state.password.value}
               placeholder={"Enter Password"}
-              onChange={(e) => this.handleTextChange(e.target.value, "password")}
+              onChange={this.onChange}
               type="password"
               name="password"
               label="Password"
-              id="password"
-              autoComplete="current-password"
+              autoFocus
             />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your password.
-            </Form.Control.Feedback>
+            <Form.Control.Feedback>{this.state.password.message}</Form.Control.Feedback>
           </FormGroup>
           <Button
             type="submit"
@@ -90,7 +139,7 @@ class Login extends React.Component {
               <Nav.Link href="/forget">Forgot password?</Nav.Link>
             </Grid>
             <Grid item>
-              <Nav.Link href="/signup">Don't have an account? Sign Up</Nav.Link>
+              <Nav.Link style={{paddingLeft:"20px"}} href="/signup">Don't have an account? Sign Up</Nav.Link>
             </Grid>
           </Grid>
         </Form>
