@@ -1,4 +1,3 @@
-import Postitem from "../component/PostItem";
 import { API_URL } from "./config"
 
 const USER_PATH = "/admin/api"

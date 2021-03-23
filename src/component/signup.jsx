@@ -18,7 +18,6 @@ class Signup extends React.Component {
       gender: "MALE",
       dateOfBirth: "",
       password: "",
-      validated: false,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -30,14 +29,8 @@ class Signup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const form = e.currentTarget;
-    const validated = form.checkValidity();
-    if (validated) {
-      signUp({ ...this.state }).then((data) => alert(JSON.stringify(data)));
-    }
-    this.setState({ validated });
+    signUp({ ...this.state }).then((data) => alert(JSON.stringify(data)));
   }
-
 
   handleTextChange(value, field) {
     this.setState({ [field]: value });
@@ -60,8 +53,12 @@ class Signup extends React.Component {
       <Container
         style={{ height: "700px", width: "600px", paddingTop: "30px" }}
       >
-        <h4 style={{ paddingLeft: "240px", paddingBottom: "20px" }}>Sign Up</h4>
-        <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+        <h4 style={{ paddingLeft: "240px", paddingBottom: "30px" }}>Sign Up</h4>
+        <Form
+          noValidate
+          validated={this.state.validated}
+          onSubmit={this.handleSubmit}
+        >
           <Form.Group controlId="formBasicText" variant="outlined">
             <Form.Label>Enrollment No</Form.Label>
             <Form.Control
@@ -73,10 +70,6 @@ class Signup extends React.Component {
               type="text"
               placeholder="Enter Enrollment No"
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Enrollment Number.
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Row>
@@ -91,10 +84,6 @@ class Signup extends React.Component {
                 type="text"
                 placeholder="Enter First Name"
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid">
-                Please provide your First Name.
-            </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formBasicText">
@@ -108,10 +97,6 @@ class Signup extends React.Component {
                 type="text"
                 placeholder="Enter Last Name"
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid">
-                Please provide your Last Name.
-            </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
 
@@ -127,10 +112,6 @@ class Signup extends React.Component {
                 type="text"
                 placeholder="Enter your Course"
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid">
-                Please provide your Course.
-            </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formBasicText">
@@ -144,10 +125,6 @@ class Signup extends React.Component {
                 type="text"
                 placeholder="Enter your branch"
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid">
-                Please provide your Branch.
-            </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formBasicText" variant="outlined">
@@ -159,12 +136,8 @@ class Signup extends React.Component {
                 }
                 required
                 type="text"
-                placeholder="2017-2021"
+                placeholder="2021"
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid">
-                Please provide your Passout Year.
-            </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
 
@@ -179,10 +152,6 @@ class Signup extends React.Component {
               type="date"
               placeholder="Enter your Date of Birth"
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please add your Date of Birth.
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
@@ -194,10 +163,6 @@ class Signup extends React.Component {
               type="email"
               placeholder="Enter email"
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your Email.
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicText">
@@ -211,14 +176,10 @@ class Signup extends React.Component {
               type="text"
               placeholder="Enter your Phone No"
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please provide your valid Phone Number.
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicText">
-            <Form.Label>Gender</Form.Label>
+            <Form.Label>Gender</Form.Label>{""}
             <input
               type="radio"
               checked={this.state.gender === "MALE"}
@@ -246,12 +207,8 @@ class Signup extends React.Component {
               }
               required
               type="password"
-              placeholder="Password"
+              placeholder="Enter strong Password"
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please choose strong Password.
-            </Form.Control.Feedback>
           </Form.Group>
           <Button
             style={{ width: "570px", paddingTop: "10px" }}
@@ -260,7 +217,7 @@ class Signup extends React.Component {
           >
             Submit
           </Button>
-          <Nav.Link href="/" >Already registared? Login here</Nav.Link>
+          <Nav.Link href="/">Already registared? Login here</Nav.Link>
         </Form>
       </Container>
     );

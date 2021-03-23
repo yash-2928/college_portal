@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Col } from "react-bootstrap";
 
 export default function CreateJob(props) {
-  const [comanyName, setCompnanyName] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [link, setLink] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [jobContent, setJobContent] = useState("");
   const [file, setFile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.createJob(comanyName, title, content, link, file);
+    props.createJob(companyName, jobContent, file);
   };
 
   return (
@@ -19,58 +17,31 @@ export default function CreateJob(props) {
         border: "1px solid black",
         borderRadius: "7px",
         paddingTop: "20px",
-        paddingLeft: "160px",
+        paddingLeft: "140px",
         paddingBottom: "20px",
         marginTop: "30px",
       }}
       onSubmit={handleSubmit}
     >
-      <Form.Group as={Row} controlId="companyname">
-        <Col sm="9">
+      <Form.Row>
+        <Col sm={6}>
           <Form.Control
             type="text"
-            value={comanyName}
-            onChange={(e) => setCompnanyName(e.target.value)}
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
             placeholder="Enter Company Name"
           />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="title">
-        <Col sm="9">
-          <Form.Control
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter Job Title"
-          />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="content">
-        <Col sm="9">
+        
           <Form.Control
             as="textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            style={{marginTop: "5px"}}
+            value={jobContent}
+            onChange={(e) => setJobContent(e.target.value)}
             placeholder="Write Something about Job..."
           />
         </Col>
-      </Form.Group>
 
-      <Form.Group as={Row} controlId="link">
-        <Col sm="9">
-          <Form.Control
-            type="text"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-            placeholder="Put any Link here..."
-          />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="type">
-        <Col sm="9">
+        <Col>
           <Form.Control
             type="file"
             onChange={(e) =>
@@ -78,12 +49,12 @@ export default function CreateJob(props) {
             }
             accept=".jpeg, .png, .pdf, .docs"
           />
-        </Col>
-      </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Post Job
-      </Button>
+          <Button style={{position:"absolute", bottom: "7px", right: "30px"}} variant="primary" type="submit">
+            Post Job
+          </Button>
+        </Col>
+      </Form.Row>
     </Form>
   );
 }

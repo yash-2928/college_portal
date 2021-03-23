@@ -26,14 +26,12 @@ export default class JobService {
         }).then(resp => resp.json())
     }
 
-    createJob(companyName, jobTitle, jobContent, link, file, userId) {
+    createJob(companyName, jobContent, file, userId) {
         const formData = new FormData();
         if (file) {
             formData.append("file", file);
         }
         formData.append("companyName", companyName);
-        formData.append("link", link);
-        formData.append("jobTitle", jobTitle);
         formData.append("jobContent", jobContent);
         formData.append("userId", userId);
 

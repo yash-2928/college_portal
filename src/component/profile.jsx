@@ -2,13 +2,14 @@ import React from "react";
 import { Col, Container, Image, Row, Button } from "react-bootstrap";
 import DocumentView from "./DocumentView";
 import moment from "moment";
-import Purple from "../images/purple.jpeg";
 import { getSignedInUser } from "../util/common";
 import PostService from "../service/postService";
 import ProfileService from "../service/profileService";
 import JobService from "../service/jobService";
 import EditProfile from "./EditProfile";
 import EditPassword from "./EditPassword";
+import EditPhoto from "./EditPhoto";
+import UserIcon from "../images/user.png";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class Profile extends React.Component {
       posts: [],
       jobs: [],
       showEditModal: false,
-      showEditPasswordModal: false
+      showEditPasswordModal: false,
+      showImageUpdateModal: false
     };
 
     this.postService = new PostService(this.state.currentUser.accessToken);
@@ -32,28 +34,40 @@ class Profile extends React.Component {
     this.loadJobsByUserId = this.loadJobsByUserId.bind(this);
     this.loadPostsByUserId = this.loadPostsByUserId.bind(this);
     this.loadUserData = this.loadUserData.bind(this);
+    this.updatePhoto = this.updatePhoto.bind(this);
+
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.showEditPasswordModal = this.showEditPasswordModal.bind(this);
     this.closeEditPasswordModal = this.closeEditPasswordModal.bind(this);
+    this.showImageUpdateModal = this.showImageUpdateModal.bind(this);
+    this.closeImageUpdateModal = this.closeImageUpdateModal.bind(this);
   }
 
   showModal() {
     this.setState({ showEditModal: true });
   }
 
+  closeModal() {
+    this.setState({ showEditModal: false });
+  }
+
   showEditPasswordModal() {
-    this.setState({ showEditPasswordModal: true })
+    this.setState({ showEditPasswordModal: true });
   }
 
   closeEditPasswordModal() {
-    this.setState({ showEditPasswordModal: false })
+    this.setState({ showEditPasswordModal: false });
   }
 
-  closeModal() {
-    this.setState({ showEditModal: false });
+  showImageUpdateModal(){
+    this.setState({ showImageUpdateModal: true });
+  }
+
+  closeImageUpdateModal(){
+    this.setState({ showImageUpdateModal: false });
   }
 
   loadUserData() {
@@ -102,12 +116,24 @@ class Profile extends React.Component {
       .updatePasswordRequest(
         this.state.currentUser.userId,
         currentPassword,
-        newPassword,
+        newPassword
       )
       .then((message) => {
         alert(message);
         this.props.logout();
       });
+  }
+
+  updatePhoto(file) {
+    this.profileService
+    .updatePhoto(
+      this.state.currentUser.userId,
+      file
+    )
+    .then(() => {
+      console.log(file);
+      this.setState({ file });
+    });
   }
 
   render() {
@@ -129,6 +155,13 @@ class Profile extends React.Component {
           updatePassword={this.updatePassword}
         />
 
+        <EditPhoto 
+        {...this.state.currentUser.userId}
+        show={this.state.showImageUpdateModal}
+        close={this.closeImageUpdateModal}
+        updatePhoto={this.updatePhoto}
+        />
+
         <Container
           style={{
             width: "50%",
@@ -141,35 +174,54 @@ class Profile extends React.Component {
           <Row>
             <Col>
               <Image
+                onClick={this.showImageUpdateModal}
                 style={{
                   display: "flex",
                   float: "left",
-                  height: "200px",
-                  width: "220px",
+                  height: "150px",
+                  width: "150px",
                   marginRight: "64px",
                   alignItems: "center",
                   justifyContent: "center",
+                  objectFit: "fill",
                 }}
-                src={Purple}
+                src={UserIcon}
                 roundedCircle
               />
-              <Button onClick={this.showModal}>Edit Profile</Button>{''}
-              <Button onClick={this.showEditPasswordModal}>Change Password</Button>
+              <Button style={{ marginTop: "10px" }} onClick={this.showModal}>
+                Edit Profile
+              </Button>
+              <Button
+                style={{ marginTop: "5px" }}
+                onClick={this.showEditPasswordModal}
+              >
+                Change Password
+              </Button>
             </Col>
             <Col
+              sm={4}
               style={{
-                paddingRight: "250px",
-                paddingTop: "5px",
+                paddingRight: "50px",
+                paddingTop: "15px",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
+              <h4>Name:</h4>
+              <h6>EnrollmentNo:</h6>
+              <h6>Course:</h6>
+              <h6>Passout Year: </h6>
+              <h6>Birthdate:</h6>
+              <h6>Email:</h6>
+              <h6>Gender:</h6>
+            </Col>
+            <Col sm={4} style={{ paddingRight: "100px", paddingTop: "15px" }}>
               <h4>
                 {this.state.userData.firstname} {this.state.userData.lastname}
               </h4>
               <h6>{this.state.userData.enrollmentNo}</h6>
               <h6>
-                {this.state.userData.course} {this.state.userData.branch}
+                {this.state.userData.course} - {this.state.userData.branch}
               </h6>
               <h6>{this.state.userData.passoutYear}</h6>
               <h6>{date.format("DD/MM/YYYY")}</h6>
@@ -182,6 +234,7 @@ class Profile extends React.Component {
           style={{
             width: "55%",
             paddingTop: "35px",
+            paddingLeft: "75px",
           }}
         >
           <Row xs={1} md={3}>

@@ -8,8 +8,8 @@ export default function CommentItem(props) {
     const date = moment(dateString)
 
     return <div>
-        <h5>{props.user.firstname + " " + props.user.lastname}</h5>
-        <h6>{date.format("DD/MM/YYYY")}</h6>
+        <h6>{props.user.firstname + " " + props.user.lastname}<br /> 
+            <span style={{fontSize: "14px"}} >{date.format("DD/MM/YYYY")}</span></h6>
         <p>{props.commentContent}</p>
     </div>
 }

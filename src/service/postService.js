@@ -32,12 +32,11 @@ export default class PostService {
         }).then(resp => resp.json())
     }
 
-    createPost(file, postTitle, postContent, userId) {
+    createPost(file, postContent, userId) {
         const formData = new FormData();
         if (file) {
             formData.append("file", file);
         }
-        formData.append("postTitle", postTitle);
         formData.append("postContent", postContent);
         formData.append("userId", userId);
 

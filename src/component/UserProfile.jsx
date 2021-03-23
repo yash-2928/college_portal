@@ -1,13 +1,13 @@
 import React from "react";
 import moment from "moment";
-import Purple from "../images/purple.jpeg";
 import { withRouter } from "react-router-dom";
 import PostService from "../service/postService";
 import ProfileService from "../service/profileService";
 import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
-import { Col, Container, Image, Row, Button } from "react-bootstrap";
+import { Col, Container, Image, Row }from "react-bootstrap";
 import DocumentView from "./DocumentView";
+import UserIcon from "../images/user.png";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -84,7 +84,7 @@ class UserProfile extends React.Component {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  src={Purple}
+                  src={UserIcon}
                   roundedCircle
                 />
               </Col>

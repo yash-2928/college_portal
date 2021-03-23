@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import JobService from "../service/jobService";
+import ReportService from "../service/reportService";
 import CommentService from "../service/commentService";
 import { getSignedInUser } from '../util/common';
 import CreateJob from "./CreateJob";
@@ -9,6 +10,7 @@ import Jobitem from "./JobItem";
 export default class Job extends React.Component {
   
   jobService;
+  reportService;
   commentService;
     
   constructor(props) {
@@ -23,9 +25,11 @@ export default class Job extends React.Component {
     this.commentService = new CommentService(
       this.state.currentUser.accessToken
     );
+    this.reportService = new ReportService(this.state.currentUser.accessToken);
     this.loadJobs = this.loadJobs.bind(this);
     this.createJob = this.createJob.bind(this);
     this.createComment = this.createComment.bind(this);
+    this.reportJob = this.reportJob.bind(this);
   }
 
   componentDidMount() {
@@ -40,15 +44,15 @@ export default class Job extends React.Component {
     });
   }
 
-  createJob(companyName, title, content, link, file) {
+  createJob(companyName, content, file) {
     this.jobService
-      .createJob(companyName, title, content, link, file, this.state.currentUser.userId)
+      .createJob(companyName, content, file, this.state.currentUser.userId)
       .then(() => this.loadJobs());
   }
 
   updateJob(jobId) {
     this.jobService.getJobs(jobId).then((updateJob) => {
-      const updatedJobs = this.state.jobss.map((job) => {
+      const updatedJobs = this.state.jobs.map((job) => {
         if (job.jobIdId === jobId) {
           return updateJob;
         }
@@ -64,6 +68,14 @@ export default class Job extends React.Component {
       .then(() => this.updateJob(jobId));
   }
 
+  reportJob(jobId, message) {
+    this.reportService.reportPost(
+      this.state.currentUser.userId,
+      jobId,
+      message
+    ).then(text => alert(text))
+  }
+
   render() {
     return (
       <Container style={{ width: "50%" }}>
@@ -73,6 +85,7 @@ export default class Job extends React.Component {
             <Jobitem
               isAdmin={this.props.isAdmin}
               createComment={this.createComment}
+              report={this.reportPost}
               key={i}
               {...job}
             />

@@ -1,6 +1,7 @@
-import { Avatar, makeStyles, Paper, Typography } from '@material-ui/core'
-import UserLogo from "../images/flowers.jpeg"
+import { Avatar, IconButton, makeStyles, Paper, Typography } from '@material-ui/core'
+import UserIcon from "../images/user.png"
 import React from 'react'
+import { Delete } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,12 +26,18 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function UserCard(props) {
-    const classes = useStyles()
+    const classes = useStyles();
+    const handleDelete = (userId) => {
+        const confirmed = window.confirm("Do you want to delete this user?")
+        if (confirmed) {
+          props.deleteUser(userId);
+        }
+      }
 
     return <Paper elevation={3} className={classes.root}>
-        <span className={classes.settings}>Options</span>
+        <IconButton onClick={() => handleDelete(props.id)} className={classes.settings}><Delete /></IconButton>
         <div className={classes.avatarDiv}>
-            <Avatar alt="profile image" src={props.fileUrl || UserLogo} className={classes.large} />
+            <Avatar alt="profile image" src={props.fileUrl || UserIcon} className={classes.large} />
         </div>
         <div>
             <Typography align="center" variant={"h5"} gutterBottom>

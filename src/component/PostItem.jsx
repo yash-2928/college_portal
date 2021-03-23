@@ -1,34 +1,20 @@
 import { IconButton } from "@material-ui/core";
-import { CloudDownloadRounded, Comment, Delete, Favorite, Report } from "@material-ui/icons";
+import { CloudDownloadRounded, Comment, Delete, Report } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Form, Button, Popover, Card, Container, OverlayTrigger, Col, Nav } from "react-bootstrap";
 import CommentItem from "./CommentItem";
 import CreateComment from "./CreateComment";
 import DocumentView from './DocumentView';
+import moment from "moment";
 
-export function PostTable(props) {
 
-  const handleDelete = (postId) => {
-    const confirmed = window.confirm("Do you want to delete this post?")
-    if (confirmed) {
-      props.deleteUser(postId);
-    }
-  }
-
-  return <tr>
-    <td>{props.postId}</td>
-    <td>{props.user.firstname} {props.user.lastname}</td>
-    <td>{props.postTitle}</td>
-    <td>{props.content}</td>
-    <td>{props.fileUrl}</td>
-    <td>{props.report}</td>
-    <td><IconButton onClick={() => handleDelete(props.id)}><Delete /></IconButton></td>
-  </tr>
-}
 
 export default function Postitem(props) {
   const [showComments, setShow] = useState(false)
   const [reportMessage, setReportMessage] = useState("")
+
+  const dateString = props.postDate;
+  const date = moment(dateString);
 
   return (
     <Container style={{ paddingTop: "20px" }} fixed>
@@ -38,14 +24,15 @@ export default function Postitem(props) {
             <Nav.Link href={"/user/" + props.user.id}>{props.user.firstname} {props.user.lastname}
               {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
             </Nav.Link>
+            <Card.Subtitle style={{marginLeft: "20px", fontSize:"14px"}}>{date.format("DD/MM/YYYY")}</Card.Subtitle>
           </Card.Title>
         </Card.Header>
 
         <Card.Body>
-          <Card.Text><strong>{props.postTitle}</strong></Card.Text>
           <p>{props.content}</p>
           {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={100} height={100} />}
         </Card.Body>
+        
         <Card.Footer>
           <a href={props.fileUrl} target="_blank" rel="noopener noreferrer" download>
             <IconButton><CloudDownloadRounded /></IconButton>

@@ -42,9 +42,9 @@ class Post extends React.Component {
     });
   }
 
-  createPost(title, content, file) {
+  createPost( content, file) {
     this.postService
-      .createPost(file, title, content, this.state.currentUser.userId)
+      .createPost(file, content, this.state.currentUser.userId)
       .then(() => this.loadPosts());
   }
 

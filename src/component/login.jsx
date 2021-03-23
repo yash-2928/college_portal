@@ -135,11 +135,11 @@ class Login extends React.Component {
             Sign In
           </Button>
           <Grid container style={{ paddingTop: "10px" }}>
-            <Grid item>
+            <Grid item sm={6}>
               <Nav.Link href="/forget">Forgot password?</Nav.Link>
             </Grid>
-            <Grid item>
-              <Nav.Link style={{ paddingLeft: "20px" }} href="/signup">Don't have an account? Sign Up</Nav.Link>
+            <Grid item sm={6}>
+              <Nav.Link  href="/signup">Don't have an account? Sign Up</Nav.Link>
             </Grid>
           </Grid>
         </Form>

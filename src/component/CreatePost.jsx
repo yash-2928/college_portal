@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Col } from "react-bootstrap";
 
 export default function CreatePost(props) {
-  const [title, setTitle] = useState("");
+  //const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.createPost(title, content, file);
+    props.createPost(content, file);
   };
 
   return (
@@ -16,26 +16,15 @@ export default function CreatePost(props) {
       style={{
         border: "1px solid black",
         borderRadius: "7px",
-        paddingLeft: "160px",
+        paddingLeft: "70px",
         paddingTop: "20px",
         paddingBottom: "20px",
         marginTop: "30px",
       }}
       onSubmit={handleSubmit}
     >
-      <Form.Group as={Row} controlId="title">
-        <Col sm="9">
-          <Form.Control
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter Post Title"
-          />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="content">
-        <Col sm="9">
+      <Form.Row>
+        <Col sm={7}>
           <Form.Control
             as="textarea"
             value={content}
@@ -43,10 +32,8 @@ export default function CreatePost(props) {
             placeholder="Write Something..."
           />
         </Col>
-      </Form.Group>
 
-      <Form.Group as={Row} controlId="type">
-        <Col sm="9">
+        <Col>
           <Form.Control
             type="file"
             onChange={(e) =>
@@ -54,12 +41,12 @@ export default function CreatePost(props) {
             }
             accept=".jpeg, .png, .pdf, .docs"
           />
+        
+          <Button style={{marginTop:"5px", marginLeft:"3px" }} variant="primary" type="submit">
+            Post
+          </Button>
         </Col>
-      </Form.Group>
-
-      <Button variant="primary" type="submit">
-        Post
-      </Button>
+      </Form.Row>
     </Form>
   );
 }

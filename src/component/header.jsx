@@ -13,8 +13,6 @@ class Header extends React.Component {
             <Nav.Link href="/profile">Profile</Nav.Link>
           </Nav>
           <Form inline>
-            <FormControl style={{ marginRight: '16px' }} type="text" placeholder="Search" className="mr-sm-2" />
-            <Button style={{ marginRight: '10px' }} variant="outline-info">Search</Button>
             <Button style={{ marginRight: '12px' }} onClick={this.props.logout}>Logout</Button>
           </Form>
         </Navbar>
