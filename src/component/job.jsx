@@ -8,11 +8,11 @@ import CreateJob from "./CreateJob";
 import Jobitem from "./JobItem";
 
 export default class Job extends React.Component {
-  
+
   jobService;
   reportService;
   commentService;
-    
+
   constructor(props) {
     super(props);
 
@@ -51,9 +51,9 @@ export default class Job extends React.Component {
   }
 
   updateJob(jobId) {
-    this.jobService.getJobs(jobId).then((updateJob) => {
+    this.jobService.getJob(jobId).then((updateJob) => {
       const updatedJobs = this.state.jobs.map((job) => {
-        if (job.jobIdId === jobId) {
+        if (job.jobId === jobId) {
           return updateJob;
         }
         return job;
@@ -64,28 +64,29 @@ export default class Job extends React.Component {
 
   createComment(jobId, content) {
     this.commentService
-      .createComment(this.state.currentUser.userId, jobId, content)
+      .createComment(this.state.currentUser.userId, content, null, jobId)
       .then(() => this.updateJob(jobId));
   }
 
   reportJob(jobId, message) {
-    this.reportService.reportPost(
+    this.reportService.report(
       this.state.currentUser.userId,
-      jobId,
-      message
+      message,
+      null,
+      jobId
     ).then(text => alert(text))
   }
 
   render() {
     return (
       <Container style={{ width: "50%" }}>
-        <CreateJob createJob = {this.createJob} />
+        <CreateJob createJob={this.createJob} />
         {this.state.jobs &&
           this.state.jobs.map((job, i) => (
             <Jobitem
               isAdmin={this.props.isAdmin}
               createComment={this.createComment}
-              report={this.reportPost}
+              report={this.reportJob}
               key={i}
               {...job}
             />

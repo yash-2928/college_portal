@@ -5,7 +5,7 @@ import PostService from "../service/postService";
 import ProfileService from "../service/profileService";
 import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
-import { Col, Container, Image, Row }from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import DocumentView from "./DocumentView";
 import UserIcon from "../images/user.png";
 
@@ -57,6 +57,9 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    if (!this.state.userData) {
+      return "Loading..."
+    }
     const dateString = this.state.userData.dateOfBirth;
     const date = moment(dateString);
 
@@ -97,16 +100,16 @@ class UserProfile extends React.Component {
                 }}
               >
                 <h4>
-                  {JSON.stringify(this.state.userData.firstname)} {JSON.stringify(this.state.userData.lastname)}
+                  {this.state.userData.firstname} {this.state.userData.lastname}
                 </h4>
-                <h6>{JSON.stringify(this.state.userData.enrollmentNo)}</h6>
+                <h6>{this.state.userData.enrollmentNo}</h6>
                 <h6>
-                  {JSON.stringify(this.state.userData.course)} {JSON.stringify(this.state.userData.branch)}
+                  {this.state.userData.course} {this.state.userData.branch}
                 </h6>
-                <h6>{JSON.stringify(this.state.userData.passoutYear)}</h6>
+                <h6>{this.state.userData.passoutYear}</h6>
                 <h6>{date.format("DD/MM/YYYY")}</h6>
-                <h6>{JSON.stringify(this.state.userData.email)}</h6>
-                <h6>{JSON.stringify(this.state.userData.gender)}</h6>
+                <h6>{this.state.userData.email}</h6>
+                <h6>{this.state.userData.gender}</h6>
               </Col>
             </Row>
           </Container>

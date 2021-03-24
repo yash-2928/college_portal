@@ -20,31 +20,15 @@ export default class ReportService {
         }).then(resp => resp.json())
     }
 
-    reportPost(userId, postId, message) {
+    report(userId, message, postId = null, jobId = null) {
         const reportBody = {
             userId,
             postId,
-            message
-        }
-
-        return fetch(API_URL + REPORT_PATH + "/post" + "/report", {
-            method: "POST",
-            body: JSON.stringify(reportBody),
-            headers: {
-                "Content-Type": "application/json",
-                ...this.getAuthorizationHeader()
-            }
-        }).then(resp => resp.text())
-    }
-
-    reportJob(userId, jobId, message) {
-        const reportBody = {
-            userId,
             jobId,
             message
         }
 
-        return fetch(API_URL + REPORT_PATH + "/job" + "/report", {
+        return fetch(API_URL + REPORT_PATH + "/report", {
             method: "POST",
             body: JSON.stringify(reportBody),
             headers: {

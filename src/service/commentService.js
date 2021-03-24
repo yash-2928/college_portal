@@ -1,6 +1,6 @@
 import { API_URL } from "./config"
 
-const COMMENT_PATH = ""
+const COMMENT_PATH = "/api"
 
 export default class CommentService {
 
@@ -14,10 +14,11 @@ export default class CommentService {
         }
     }
 
-    createComment(userId, postId, commentContent) {
+    createComment(userId, commentContent, postId = null, jobId = null) {
         const commentBody = {
             userId,
             postId,
+            jobId,
             commentContent
         }
 

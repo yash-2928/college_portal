@@ -42,7 +42,7 @@ class Post extends React.Component {
     });
   }
 
-  createPost( content, file) {
+  createPost(content, file) {
     this.postService
       .createPost(file, content, this.state.currentUser.userId)
       .then(() => this.loadPosts());
@@ -61,16 +61,16 @@ class Post extends React.Component {
   }
 
   reportPost(postId, message) {
-    this.reportService.reportPost(
+    this.reportService.report(
       this.state.currentUser.userId,
-      postId,
-      message
+      message,
+      postId
     ).then(text => alert(text))
   }
 
   createComment(postId, content) {
     this.commentService
-      .createComment(this.state.currentUser.userId, postId, content)
+      .createComment(this.state.currentUser.userId, content, postId = postId)
       .then(() => this.updatePost(postId));
   }
 

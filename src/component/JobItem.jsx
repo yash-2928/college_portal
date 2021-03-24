@@ -12,7 +12,7 @@ export default function Jobitem(props) {
   const [reportMessage, setReportMessage] = useState("")
 
 
-  const dateString = props.postDate;
+  const dateString = props.jobDate;
   const date = moment(dateString);
 
   return (
@@ -85,7 +85,7 @@ export default function Jobitem(props) {
                       <Form.Control className="mb-2" value={reportMessage} onChange={e => setReportMessage(e.target.value)} type="text" placeholder="Write something..." />
                     </Col>
                     <Col xs="auto">
-                      <Button className="mb-2" onClick={() => props.report(props.postId, reportMessage)} >Report</Button>
+                      <Button className="mb-2" onClick={() => props.report(props.jobId, reportMessage)} >Report</Button>
                     </Col>
                   </Form.Row>
                 </Form>
