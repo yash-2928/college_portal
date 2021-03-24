@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Tabs, Container } from "react-bootstrap";
+import { Row, Col, Tabs, Container, Table } from "react-bootstrap";
 import UserService from "../service/userService";
 import PostService from "../service/postService"
 import ReportService from "../service/reportService"
@@ -9,7 +9,9 @@ import { Tab } from "bootstrap";
 import UserCard from "./UserCard";
 import PostCard from "./PostCard";
 import JobCard from "./JobCard";
- 
+import { IconButton } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
+
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
@@ -86,7 +88,28 @@ export default class Admin extends React.Component {
       <Tabs defaultActiveKey="user">
         <Tab eventKey="dashboard" title="Dashboard">
           <Container>
-            <span>Welcome to the Admin Panel</span>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Message</th>
+                  <th>User Id</th>
+                  <th>Post Id</th>
+                  <th>Job Id</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.reports.map((report, i) => <tr key={i}>
+                  <td>{report.reportId}</td>
+                  <td>{report.message}</td>
+                  <td>{report.user.id}</td>
+                  <td>{report.post?.postId}</td>
+                  <td>{report.job?.jobId}</td>
+                  <td><IconButton onClick={() => this.deleteReport(report.reportId)}><Delete /></IconButton></td>
+                </tr>)}
+              </tbody>
+            </Table>
           </Container>
         </Tab>
 
@@ -107,7 +130,7 @@ export default class Admin extends React.Component {
         </Tab>
 
         <Tab eventKey="job" title="Job">
-        <Container>
+          <Container>
             <Row md={4}>
               {this.state.jobs.map((job, i) => <Col key={i}><JobCard  {...job} /></Col>)}
             </Row>
