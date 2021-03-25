@@ -30,6 +30,7 @@ export default class Job extends React.Component {
     this.createJob = this.createJob.bind(this);
     this.createComment = this.createComment.bind(this);
     this.reportJob = this.reportJob.bind(this);
+    this.deleteJob = this.deleteJob.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +67,10 @@ export default class Job extends React.Component {
     this.commentService
       .createComment(this.state.currentUser.userId, content, null, jobId)
       .then(() => this.updateJob(jobId));
+  }
+
+  deleteJob(jobId) {
+    this.jobService.deleteJob(jobId).then(() => this.loadJob());
   }
 
   reportJob(jobId, message) {

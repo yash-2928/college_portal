@@ -5,7 +5,7 @@ import PostService from "../service/postService";
 import ProfileService from "../service/profileService";
 import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row, Tabs, Tab } from "react-bootstrap";
 import DocumentView from "./DocumentView";
 import UserIcon from "../images/user.png";
 
@@ -69,10 +69,9 @@ class UserProfile extends React.Component {
           <Container
             style={{
               width: "50%",
-              paddingLeft: "150px",
+              paddingLeft: "120px",
               paddingTop: "35px",
               paddingBottom: "30px",
-              borderBottom: "1px solid black",
             }}
           >
             <Row>
@@ -81,36 +80,47 @@ class UserProfile extends React.Component {
                   style={{
                     display: "flex",
                     float: "left",
-                    height: "200px",
-                    width: "220px",
+                    height: "150px",
+                    width: "150px",
                     marginRight: "64px",
                     alignItems: "center",
                     justifyContent: "center",
+                    objectFit: "fill",
                   }}
                   src={UserIcon}
                   roundedCircle
                 />
               </Col>
               <Col
-                style={{
-                  paddingRight: "250px",
-                  paddingTop: "5px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <h4>
-                  {this.state.userData.firstname} {this.state.userData.lastname}
-                </h4>
-                <h6>{this.state.userData.enrollmentNo}</h6>
-                <h6>
-                  {this.state.userData.course} {this.state.userData.branch}
-                </h6>
-                <h6>{this.state.userData.passoutYear}</h6>
-                <h6>{date.format("DD/MM/YYYY")}</h6>
-                <h6>{this.state.userData.email}</h6>
-                <h6>{this.state.userData.gender}</h6>
-              </Col>
+              sm={4}
+              style={{
+                paddingRight: "50px",
+                paddingTop: "15px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h4>Name:</h4>
+              <h6>EnrollmentNo:</h6>
+              <h6>Course:</h6>
+              <h6>Passout Year: </h6>
+              <h6>Birthdate:</h6>
+              <h6>Email:</h6>
+              <h6>Gender:</h6>
+            </Col>
+            <Col sm={4} style={{ paddingRight: "100px", paddingTop: "15px" }}>
+              <h4>
+                {this.state.userData.firstname} {this.state.userData.lastname}
+              </h4>
+              <h6>{this.state.userData.enrollmentNo}</h6>
+              <h6>
+                {this.state.userData.course} - {this.state.userData.branch}
+              </h6>
+              <h6>{this.state.userData.passoutYear}</h6>
+              <h6>{date.format("DD/MM/YYYY")}</h6>
+              <h6>{this.state.userData.email}</h6>
+              <h6>{this.state.userData.gender}</h6>
+            </Col>
             </Row>
           </Container>
           <Container
@@ -119,18 +129,36 @@ class UserProfile extends React.Component {
               paddingTop: "35px",
             }}
           >
-            <Row xs={1} md={3}>
-              {this.state.posts.map((post, i) => (
-                <Col key={i}>
-                  <DocumentView
-                    fileUrl={post.fileUrl}
-                    postType={post.postType}
-                    height={200}
-                    width={200}
-                  />
-                </Col>
-              ))}
-            </Row>
+           <Tabs style={{ justifyContent: "center" }} defaultActiveKey="post">
+            <Tab eventKey="post" title="Post">
+              <Row style={{ marginTop: "20px", marginLeft:"70px" }} xs={1} md={3}>
+                {this.state.posts.map((post, i) => (
+                  <Col style={{marginTop: "20px"}} key={i}>
+                    <DocumentView
+                      fileUrl={post.fileUrl}
+                      postType={post.postType}
+                      height={200}
+                      width={200}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Tab>
+            <Tab eventKey="job" title="Job">
+              <Row style={{ marginTop: "20px", marginLeft:"70px" }} xs={1} md={3}>
+                {this.state.jobs.map((job, i) => (
+                  <Col style={{marginTop: "20px"}} key={i}>
+                    <DocumentView
+                      fileUrl={job.fileUrl}
+                      postType={job.postType}
+                      height={200}
+                      width={200}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Tab>
+          </Tabs>
           </Container>
         </div>
       );

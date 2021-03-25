@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     },
     settings: {
         position: "absolute",
-        top: "12px",
-        right: "12px"
+        top: "8px",
+        right: "10px"
     },
     avatarDiv: {
         display: 'flex',
@@ -27,20 +27,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserCard(props) {
     const classes = useStyles();
-    const handleDelete = (userId) => {
+    
+    /*const handleDelete = (userId) => {
         const confirmed = window.confirm("Do you want to delete this user?")
         if (confirmed) {
-          props.deleteUser(userId);
+          props.deleteUser(userId).bind(this);
         }
-      }
+      }*/
 
     return <Paper elevation={3} className={classes.root}>
-        <IconButton onClick={() => handleDelete(props.id)} className={classes.settings}><Delete /></IconButton>
+        <IconButton onClick={() => props.delete(props.id)} className={classes.settings}><Delete /></IconButton>
         <div className={classes.avatarDiv}>
             <Avatar alt="profile image" src={props.fileUrl || UserIcon} className={classes.large} />
         </div>
         <div>
-            <Typography align="center" variant={"h5"} gutterBottom>
+            <Typography style={{fontSize:"20px"}} align="center" variant={"h5"} gutterBottom>
                 {props.firstname} {props.lastname}
             </Typography>
         </div>

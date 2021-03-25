@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Image, Row, Button } from "react-bootstrap";
+import { Col, Container, Image, Row, Button, Tabs, Tab } from "react-bootstrap";
 import DocumentView from "./DocumentView";
 import moment from "moment";
 import { getSignedInUser } from "../util/common";
@@ -22,7 +22,7 @@ class Profile extends React.Component {
       jobs: [],
       showEditModal: false,
       showEditPasswordModal: false,
-      showImageUpdateModal: false
+      showImageUpdateModal: false,
     };
 
     this.postService = new PostService(this.state.currentUser.accessToken);
@@ -44,6 +44,7 @@ class Profile extends React.Component {
     this.closeEditPasswordModal = this.closeEditPasswordModal.bind(this);
     this.showImageUpdateModal = this.showImageUpdateModal.bind(this);
     this.closeImageUpdateModal = this.closeImageUpdateModal.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   showModal() {
@@ -62,11 +63,11 @@ class Profile extends React.Component {
     this.setState({ showEditPasswordModal: false });
   }
 
-  showImageUpdateModal(){
+  showImageUpdateModal() {
     this.setState({ showImageUpdateModal: true });
   }
 
-  closeImageUpdateModal(){
+  closeImageUpdateModal() {
     this.setState({ showImageUpdateModal: false });
   }
 
@@ -126,16 +127,17 @@ class Profile extends React.Component {
 
   updatePhoto(file) {
     this.profileService
-    .updatePhoto(
-      this.state.currentUser.userId,
-      file
-    )
-    .then(() => {
-      console.log(file);
-      this.setState({ file });
-    });
-  }
+      .updatePhoto(this.state.currentUser.userId, file)
+      .then(() => {
+        console.log(file);
+        this.setState({ file });
+      });
+    }
 
+    deletePost(postId) {
+      this.postService.deletePost(postId).then(() => this.loadPost());
+    }  
+    
   render() {
     const dateString = this.state.userData.dateOfBirth;
     const date = moment(dateString);
@@ -155,11 +157,11 @@ class Profile extends React.Component {
           updatePassword={this.updatePassword}
         />
 
-        <EditPhoto 
-        {...this.state.currentUser.userId}
-        show={this.state.showImageUpdateModal}
-        close={this.closeImageUpdateModal}
-        updatePhoto={this.updatePhoto}
+        <EditPhoto
+          {...this.state.currentUser.userId}
+          show={this.state.showImageUpdateModal}
+          close={this.closeImageUpdateModal}
+          updatePhoto={this.updatePhoto}
         />
 
         <Container
@@ -168,7 +170,6 @@ class Profile extends React.Component {
             paddingLeft: "150px",
             paddingTop: "35px",
             paddingBottom: "30px",
-            borderBottom: "1px solid black",
           }}
         >
           <Row>
@@ -237,18 +238,36 @@ class Profile extends React.Component {
             paddingLeft: "75px",
           }}
         >
-          <Row xs={1} md={3}>
-            {this.state.posts.map((post, i) => (
-              <Col key={i}>
-                <DocumentView
-                  fileUrl={post.fileUrl}
-                  postType={post.postType}
-                  height={200}
-                  width={200}
-                />
-              </Col>
-            ))}
-          </Row>
+          <Tabs style={{ justifyContent: "center" }} defaultActiveKey="post">
+            <Tab eventKey="post" title="Post">
+              <Row style={{ marginTop: "20px", marginLeft:"70px" }} xs={1} md={3}>
+                {this.state.posts.map((post, i) => (
+                  <Col style={{marginTop: "20px"}} key={i}>
+                    <DocumentView
+                      fileUrl={post.fileUrl}
+                      postType={post.postType}
+                      height={200}
+                      width={200}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Tab>
+            <Tab eventKey="job" title="Job">
+              <Row style={{ marginTop: "20px", marginLeft:"70px" }} xs={1} md={3}>
+                {this.state.jobs.map((job, i) => (
+                  <Col style={{margingTop:"20px"}} key={i}>
+                    <DocumentView
+                      fileUrl={job.fileUrl}
+                      postType={job.postType}
+                      height={200}
+                      width={200}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Tab>
+          </Tabs>
         </Container>
       </div>
     );

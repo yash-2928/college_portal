@@ -28,6 +28,7 @@ class Post extends React.Component {
     this.createPost = this.createPost.bind(this);
     this.createComment = this.createComment.bind(this);
     this.reportPost = this.reportPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   componentDidMount() {
@@ -61,16 +62,18 @@ class Post extends React.Component {
   }
 
   reportPost(postId, message) {
-    this.reportService.report(
-      this.state.currentUser.userId,
-      message,
-      postId
-    ).then(text => alert(text))
+    this.reportService
+      .report(this.state.currentUser.userId, message, postId)
+      .then((text) => alert(text));
+  }
+
+  deletePost(postId) {
+    this.postService.deletePost(postId).then(() => this.loadPost());
   }
 
   createComment(postId, content) {
     this.commentService
-      .createComment(this.state.currentUser.userId, content, postId = postId)
+      .createComment(this.state.currentUser.userId, content, (postId = postId))
       .then(() => this.updatePost(postId));
   }
 
@@ -84,6 +87,7 @@ class Post extends React.Component {
               isAdmin={this.props.isAdmin}
               createComment={this.createComment}
               report={this.reportPost}
+              delete={this.deletePost}
               key={i}
               {...post}
             />

@@ -14,8 +14,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UserIcon from "../images/user.png";
 import CommentItem from "./CommentItem";
 import CreateComment from "./CreateComment";
-import Menu from "./Menu";
 import moment from "moment";
+import { Delete } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +63,11 @@ export default function JobCard(props) {
             className={classes.avatar}
           />
         }
-        action={<Menu />}
+        action={
+          <IconButton onClick={() => props.delete(props.jobId)}>
+            <Delete />
+          </IconButton>
+        }
         title={props.user.firstname + props.user.lastname}
         subheader={date.format("DD/MM/YYYY")}
       />

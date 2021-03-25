@@ -39,7 +39,7 @@ export default function PostMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem style={{color: "red"}} onClick={handleClose}>
              Delete Post
         </MenuItem>
       </Menu>
