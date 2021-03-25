@@ -62,11 +62,11 @@ class Profile extends React.Component {
     this.setState({ showEditPasswordModal: false });
   }
 
-  showImageUpdateModal(){
+  showImageUpdateModal() {
     this.setState({ showImageUpdateModal: true });
   }
 
-  closeImageUpdateModal(){
+  closeImageUpdateModal() {
     this.setState({ showImageUpdateModal: false });
   }
 
@@ -126,14 +126,14 @@ class Profile extends React.Component {
 
   updatePhoto(file) {
     this.profileService
-    .updatePhoto(
-      this.state.currentUser.userId,
-      file
-    )
-    .then(() => {
-      console.log(file);
-      this.setState({ file });
-    });
+      .updatePhoto(
+        this.state.currentUser.userId,
+        file
+      )
+      .then(() => {
+        this.loadUserData();
+        this.closeImageUpdateModal();
+      });
   }
 
   render() {
@@ -155,11 +155,11 @@ class Profile extends React.Component {
           updatePassword={this.updatePassword}
         />
 
-        <EditPhoto 
-        {...this.state.currentUser.userId}
-        show={this.state.showImageUpdateModal}
-        close={this.closeImageUpdateModal}
-        updatePhoto={this.updatePhoto}
+        <EditPhoto
+          {...this.state.currentUser.userId}
+          show={this.state.showImageUpdateModal}
+          close={this.closeImageUpdateModal}
+          updatePhoto={this.updatePhoto}
         />
 
         <Container
@@ -185,7 +185,7 @@ class Profile extends React.Component {
                   justifyContent: "center",
                   objectFit: "fill",
                 }}
-                src={UserIcon}
+                src={this.state.userData.fileurl || UserIcon}
                 roundedCircle
               />
               <Button style={{ marginTop: "10px" }} onClick={this.showModal}>
