@@ -33,12 +33,10 @@ export default function Postitem(props) {
       <Card>
         <Card.Header>
           <Card.Title>
-            <Nav.Link href={"/user/" + props.user.id}>
-              {props.user.firstname} {props.user.lastname}
+            <Nav.Link href={"/user/" + props.user.id}>{props.user.firstname} {props.user.lastname}
+              {(props.isAdmin || props.isCurrentUserPost) && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
             </Nav.Link>
-            <Card.Subtitle style={{ marginLeft: "20px", fontSize: "14px" }}>
-              {date.format("DD/MM/YYYY")}
-            </Card.Subtitle>
+            <Card.Subtitle style={{ marginLeft: "20px", fontSize: "14px" }}>{date.format("DD/MM/YYYY")}</Card.Subtitle>
           </Card.Title>
         </Card.Header>
 

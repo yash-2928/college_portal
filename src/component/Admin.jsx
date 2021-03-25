@@ -121,8 +121,8 @@ export default class Admin extends React.Component {
 
         <Tab eventKey="user" title="User">
           <Container>
-            <Row md={6}>
-              {this.state.users.map((user, i) => <Col key={i} style={{ margin: "8px" }}><UserCard delete={this.deleteUser} {...user} /></Col>)}
+            <Row md={4}>
+              {this.state.users.map((user, i) => <Col key={i} style={{ margin: "8px" }}><UserCard deleteUser={this.deleteUser} {...user} /></Col>)}
             </Row>
           </Container>
         </Tab>
@@ -130,7 +130,7 @@ export default class Admin extends React.Component {
         <Tab eventKey="post" title="Post">
           <Container>
             <Row md={4}>
-              {this.state.posts.map((post, i) => <Col key={i}><PostCard style={{ margin: "8px" }} delete={this.deletePost} {...post} /></Col>)}
+              {this.state.posts.map((post, i) => <Col key={i}><PostCard style={{ margin: "8px" }} deletePost={this.deletePost} {...post} /></Col>)}
             </Row>
           </Container>
         </Tab>
@@ -138,7 +138,7 @@ export default class Admin extends React.Component {
         <Tab eventKey="job" title="Job">
           <Container>
             <Row md={4}>
-              {this.state.jobs.map((job, i) => <Col key={i}><JobCard style={{ margin: "8px" }} delete={this.deleteJob} {...job} /></Col>)}
+              {this.state.jobs.map((job, i) => <Col key={i}><JobCard deleteJob={this.deleteJob} {...job} /></Col>)}
             </Row>
           </Container>
         </Tab>

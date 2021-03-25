@@ -64,9 +64,9 @@ export default function PostCard(props) {
           />
         }
         action={
-          <IconButton onClick={() => props.delete(props.postId)}><Delete /></IconButton>
+          <IconButton onClick={() => props.deletePost(props.postId)}><Delete /></IconButton>
         }
-        title= {props.user.firstname + props.user.lastname}
+        title= {props.user.firstname + props.user.lastname + props.postId}
         subheader= {date.format("DD/MM/YYYY")}
       />
       <CardMedia

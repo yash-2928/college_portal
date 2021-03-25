@@ -36,7 +36,7 @@ export default function UserCard(props) {
       }*/
 
     return <Paper elevation={3} className={classes.root}>
-        <IconButton onClick={() => props.delete(props.id)} className={classes.settings}><Delete /></IconButton>
+        <IconButton onClick={() => props.deleteUser(props.id)} className={classes.settings}><Delete /></IconButton>
         <div className={classes.avatarDiv}>
             <Avatar alt="profile image" src={props.fileUrl || UserIcon} className={classes.large} />
         </div>

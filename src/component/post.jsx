@@ -84,6 +84,7 @@ class Post extends React.Component {
         {this.state.posts &&
           this.state.posts.map((post, i) => (
             <Postitem
+              isCurrentUserPost={this.state.currentUser.userId === post.user.id}
               isAdmin={this.props.isAdmin}
               createComment={this.createComment}
               report={this.reportPost}

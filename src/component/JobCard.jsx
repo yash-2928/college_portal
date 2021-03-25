@@ -64,11 +64,11 @@ export default function JobCard(props) {
           />
         }
         action={
-          <IconButton onClick={() => props.delete(props.jobId)}>
+          <IconButton onClick={() => props.deleteJob(props.jobId)}>
             <Delete />
           </IconButton>
         }
-        title={props.user.firstname + props.user.lastname}
+        title={props.user.firstname + props.user.lastname + props.jobId}
         subheader={date.format("DD/MM/YYYY")}
       />
       <CardMedia
