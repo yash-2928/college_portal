@@ -22,9 +22,9 @@ export default function Postitem(props) {
         <Card.Header>
           <Card.Title>
             <Nav.Link href={"/user/" + props.user.id}>{props.user.firstname} {props.user.lastname}
-              {props.isAdmin && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
+              {(props.isAdmin || props.isCurrentUserPost) && <IconButton style={{ float: "right" }}><Delete /></IconButton>}
             </Nav.Link>
-            <Card.Subtitle style={{marginLeft: "20px", fontSize:"14px"}}>{date.format("DD/MM/YYYY")}</Card.Subtitle>
+            <Card.Subtitle style={{ marginLeft: "20px", fontSize: "14px" }}>{date.format("DD/MM/YYYY")}</Card.Subtitle>
           </Card.Title>
         </Card.Header>
 
@@ -32,7 +32,7 @@ export default function Postitem(props) {
           <p>{props.content}</p>
           {props.postType && <DocumentView postType={props.postType} fileUrl={props.fileUrl} width={100} height={100} />}
         </Card.Body>
-        
+
         <Card.Footer>
           <a href={props.fileUrl} target="_blank" rel="noopener noreferrer" download>
             <IconButton><CloudDownloadRounded /></IconButton>

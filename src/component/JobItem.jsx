@@ -39,14 +39,12 @@ export default function Jobitem(props) {
             <strong>{props.companyName}</strong>
           </Card.Text>
           <p>{props.content}</p>
-          {props.postType && (
-            <DocumentView
-              postType={props.postType}
-              fileUrl={props.fileUrl}
-              width={100}
-              height={100}
-            />
-          )}
+          <DocumentView
+            postType={"image/jpeg"}
+            fileUrl={props.fileUrl}
+            width={200}
+            height={100}
+          />
         </Card.Body>
 
         <Card.Footer>
