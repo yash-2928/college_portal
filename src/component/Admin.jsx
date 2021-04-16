@@ -1,8 +1,8 @@
 import React from "react";
 import { Row, Col, Tabs, Container, Table } from "react-bootstrap";
 import UserService from "../service/userService";
-import PostService from "../service/postService"
-import ReportService from "../service/reportService"
+import PostService from "../service/postService";
+import ReportService from "../service/reportService";
 import JobService from "../service/jobService";
 import { getSignedInUser } from "../util/common";
 import { Tab } from "bootstrap";
@@ -21,7 +21,7 @@ export default class Admin extends React.Component {
       users: [],
       posts: [],
       jobs: [],
-      reports: []
+      reports: [],
     };
 
     this.userService = new UserService(this.state.currentUser.accessToken);
@@ -55,7 +55,9 @@ export default class Admin extends React.Component {
   }
 
   loadReports() {
-    this.reportService.getReports().then(reports => this.setState({ reports }))
+    this.reportService
+      .getReports()
+      .then((reports) => this.setState({ reports }));
   }
 
   deletePost(postId) {
@@ -73,7 +75,7 @@ export default class Admin extends React.Component {
   }
 
   deleteReport(reportId) {
-    this.reportService.deleteReport(reportId).then(this.loadReports)
+    this.reportService.deleteReport(reportId).then(this.loadReports);
   }
 
   componentDidMount() {
@@ -86,67 +88,86 @@ export default class Admin extends React.Component {
   render() {
     return (
       <>
-      <h4 style={{marginTop:"20px", marginLeft:"765px"}}>Welcome to the Admin panel<br />
-      </h4>
-      <Tabs defaultActiveKey="dashboard" style={{justifyContent: "center"}}>
-        <Tab eventKey="dashboard" title="Dashboard">
-          <Container>
-            <Table>
-            <thead>
-                <tr>
-                  <th>Report Item</th>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Message</th>
-                  <th>User Id</th>
-                  <th>Post Id</th>
-                  <th>Job Id</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.reports.map((report, i) => <tr key={i}>
-                  <td>{report.message}</td>
-                  <td>{report.user.id}</td>
-                  <td>{report.post?.postId}</td>
-                  <td>{report.job?.jobId}</td>
-                  <td><IconButton onClick={() => this.deleteReport(report.reportId)}><Delete /></IconButton></td>
-                </tr>)}
-              </tbody>
-            </Table>
-          </Container>
-        </Tab>
+        <h4 style={{ marginTop: "20px", marginLeft: "775px" }}>
+          Welcome to the Admin panel
+          <br />
+        </h4>
+        <Tabs
+          defaultActiveKey="dashboard"
+          style={{ justifyContent: "center", marginTop: "20px" }}
+        >
+          <Tab eventKey="dashboard" title="Dashboard">
+            <Container>
+              <h5 style={{margin: "20px"}}>Reported Item</h5>            
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Message</th>
+                    <th>User Id</th>
+                    <th>Post Id</th>
+                    <th>Job Id</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.reports &&
+                    this.state.reports.map((report, i) => (
+                      <tr key={i}>
+                        <td>{report.message}</td>
+                        <td>{report.user.id}</td>
+                        <td>{report.post?.postId}</td>
+                        <td>{report.job?.jobId}</td>
+                        <td>
+                          <IconButton
+                            onClick={() => this.deleteReport(report.reportId)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </Container>
+          </Tab>
 
-        <Tab eventKey="user" title="User">
-          <Container>
-            <Row md={4}>
-              {this.state.users.map((user, i) => <Col key={i} style={{ margin: "8px" }}><UserCard deleteUser={this.deleteUser} {...user} /></Col>)}
-            </Row>
-          </Container>
-        </Tab>
+          <Tab eventKey="user" title="User">
+            <Container>
+              <Row md={4}>
+                {this.state.users.map((user, i) => (
+                  <Col key={i} style={{ margin: "8px" }}>
+                    <UserCard deleteUser={this.deleteUser} {...user} />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+          </Tab>
 
-        <Tab eventKey="post" title="Post">
-          <Container>
-            <Row md={4}>
-              {this.state.posts.map((post, i) => <Col key={i}><PostCard style={{ margin: "8px" }} deletePost={this.deletePost} {...post} /></Col>)}
-            </Row>
-          </Container>
-        </Tab>
+          <Tab eventKey="post" title="Post">
+            <Container>
+              <Row md={4}>
+                {this.state.posts.map((post, i) => (
+                  <Col key={i} style={{ margin: "8px" }}>
+                    <PostCard deletePost={this.deletePost} {...post} />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+          </Tab>
 
-        <Tab eventKey="job" title="Job">
-          <Container>
-            <Row md={4}>
-              {this.state.jobs.map((job, i) => <Col key={i}><JobCard deleteJob={this.deleteJob} {...job} /></Col>)}
-            </Row>
-          </Container>
-        </Tab>
-      </Tabs>
+          <Tab eventKey="job" title="Job">
+            <Container>
+              <Row md={4}>
+                {this.state.jobs.map((job, i) => (
+                  <Col key={i} style={{ margin: "8px" }}>
+                    <JobCard deleteJob={this.deleteJob} {...job} />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+          </Tab>
+        </Tabs>
       </>
     );
   }
 }
-
-// ReportDashboard
-// Create Job

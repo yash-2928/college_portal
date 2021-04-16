@@ -127,12 +127,15 @@ class Profile extends React.Component {
 
   updatePhoto(file) {
     this.profileService
-      .updatePhoto(this.state.currentUser.userId, file)
+      .updatePhoto(
+        this.state.currentUser.userId,
+        file
+      )
       .then(() => {
-        console.log(file);
-        this.setState({ file });
+        this.loadUserData();
+        this.closeImageUpdateModal();
       });
-    }
+  }
 
     deletePost(postId) {
       this.postService.deletePost(postId).then(() => this.loadPost());
@@ -186,7 +189,7 @@ class Profile extends React.Component {
                   justifyContent: "center",
                   objectFit: "fill",
                 }}
-                src={UserIcon}
+                src={this.state.userData.fileurl || UserIcon}
                 roundedCircle
               />
               <Button style={{ marginTop: "10px" }} onClick={this.showModal}>
