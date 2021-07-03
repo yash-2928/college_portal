@@ -14,22 +14,25 @@ export default class PostService {
         }
     }
 
-    getPosts() {
-        return fetch(API_URL + POST_PATH + "/posts", {
+    async getPosts() {
+        const resp = await fetch(API_URL + POST_PATH + "/posts", {
             headers: this.getAuthorizationHeader()
-        }).then(resp => resp.json())
+        });
+        return await resp.json();
     }
 
-    getPostsByUserId(userId) {
-        return fetch(API_URL + POST_PATH + "/users/" + userId + "/posts", {
+    async getPostsByUserId(userId) {
+        const resp = await fetch(API_URL + POST_PATH + "/users/" + userId + "/posts", {
             headers: this.getAuthorizationHeader()
-        }).then(resp => resp.json())
+        });
+        return await resp.json();
     }
 
-    getPost(postId) {
-        return fetch(API_URL + POST_PATH + "/posts/" + postId, {
+    async getPost(postId) {
+        const resp = await fetch(API_URL + POST_PATH + "/posts/" + postId, {
             headers: this.getAuthorizationHeader()
-        }).then(resp => resp.json())
+        });
+        return await resp.json();
     }
 
     createPost(file, postContent, userId) {
